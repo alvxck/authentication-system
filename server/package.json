@@ -1,0 +1,23 @@
+{
+  "name": "login_system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alvxck/Login-System.git"
+  },
+  "author": "Alexander Carvalho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alvxck/Login-System/issues"
+  },
+  "homepage": "https://github.com/alvxck/Login-System#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.3.3"
+  }
+}
