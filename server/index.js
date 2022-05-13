@@ -4,6 +4,7 @@ const HTTP_PORT = process.env.PORT || 1337;
 const cors = require('cors')
 const mongoose = require('mongoose')
 const User = require('./models/user')
+const jwt = require('jsonwebtoken')
 
 //------------------------------------------------------
 
@@ -44,7 +45,14 @@ app.post('/login', async (req, res) => {
     })
     
     if (user) {
-        return res.json({status: 'ok', user: true})
+        const token = jwt.sign(
+            {
+            name: user.name,
+            email: user.email
+            }, 
+            '123'
+        )
+        return res.json({status: 'ok', user: token})
     } else {
         return res.json({status: 'error', user: false})
     }
