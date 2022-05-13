@@ -11,18 +11,19 @@ app.use(cors())
 app.use(express.json())
 mongoose.connect('mongodb://localhost:27017/login-system')
 
-app.listen(HTTP_PORT, () => {
-    console.log('Server running on port ' + HTTP_PORT)
-})
 
 // TODO: 
 // add encryption
 // add password / email specific exceptions
 
 
+// Initialization
+app.listen(HTTP_PORT, () => {
+    console.log('Server running on port ' + HTTP_PORT)
+})
+
 // Register
 app.post('/register', async (req, res) => {
-    console.log(req.body)
     try {
         await User.create({
             name: req.body.name,
@@ -45,9 +46,6 @@ app.post('/login', async (req, res) => {
     if (user) {
         return res.json({status: 'ok', user: true})
     } else {
-        return res.join({status: 'error', user: false})
+        return res.json({status: 'error', user: false})
     }
 })
-
-
-
