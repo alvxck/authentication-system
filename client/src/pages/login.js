@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function App() {
+function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -19,7 +19,14 @@ function App() {
     })
 
     const data = await response.json()
-    console.log(data)
+
+    if(data.user) {
+      localStorage.setItem('token', data.user)
+      alert('Login Successful')
+      window.location.href = '/home'
+    } else {
+      alert('Incorrect username or password')
+    }
   }
 
   return (
@@ -40,11 +47,11 @@ function App() {
       />
       <input 
         type='submit'
-        value='Register'
+        value='Login'
       />
     </form>
   </div>
   )
 }
 
-export default App;
+export default Login;
