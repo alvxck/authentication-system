@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken')
 
 app.use(cors())
 app.use(express.json())
-mongoose.connect('mongodb://localhost:27017/login-system')
+mongoose.connect('mongodb://localhost:27017/login_system')
 
 
 // TODO: 
