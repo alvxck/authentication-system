@@ -7,7 +7,7 @@ const User = new mongoose.Schema(
     password: {type: String, require: true},
     quote: {type: String}
     },
-    {collection: 'user-data'}
+    {collection: 'user_data'}
 )
 
 const model = mongoose.model('UserData', User)
