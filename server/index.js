@@ -4,7 +4,8 @@ const HTTP_PORT = process.env.PORT || 1337;
 const cors = require('cors')
 const mongoose = require('mongoose')
 const User = require('./models/user')
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 
 //------------------------------------------------------
 
@@ -26,10 +27,12 @@ app.listen(HTTP_PORT, () => {
 // Register
 app.post('/register', async (req, res) => {
     try {
+        const newEmail = await bcrypt.hash(req.body.email, 10)
+        const newPassword = await bcrypt.hash(req.body.password, 10)
         await User.create({
             name: req.body.name,
-            email: req.body.email,
-            password: req.body.password
+            email: newEmail,
+            password: newPassword
         })
         res.json({status: 'ok'})
     } catch (err) {
@@ -39,12 +42,19 @@ app.post('/register', async (req, res) => {
 
 // Login
 app.post('/login', async (req, res) => {
+    const hashEmail = await bcrypt.hash(req.body.email, 10)
+
     const user = await User.findOne({
-        email: req.body.email,
-        password: req.body.password
+        email: hashEmail,
     })
+
+    if (!user) {
+        return {status: 'error', error: 'Incorrect Login'}
+    } 
+
+    const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
     
-    if (user) {
+    if (isPasswordValid) {
         const token = jwt.sign(
             {
             name: user.name,
