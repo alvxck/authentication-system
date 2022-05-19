@@ -4,10 +4,10 @@ import {
     Routes, 
     Route
 } from 'react-router-dom'
-import Home from './pages/home'
-import Login from './pages/login'
-import Register from './pages/register'
-import Error404 from './pages/error404'
+import Home from './Home'
+import Login from './Login'
+import Register from './Register'
+import Error404 from './Error404'
 
 
 const App = () => {
