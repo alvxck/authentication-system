@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import './Style.css'
+
 
 function Register() {
     const [name, setName] = useState('')
@@ -30,33 +32,43 @@ function Register() {
     }
 
     return (
-    <div>
-        <h1>Registration</h1>
-        <form onSubmit={registerUser}>
-        <input
-            value={name}
-            onChange={(x) => setName(x.target.value)}
-            type='text' 
-            placeholder='Name'
-        />
-        <input 
-            value={email}
-            onChange={(x) => setEmail(x.target.value)}
-            type='email' 
-            placeholder='Email'
-        />
-        <input 
-            value={password}
-            onChange={(x) => setPassword(x.target.value)}
-            type='password' 
-            placeholder='Password'
-        />
-        <input 
-            type='submit'
-            value='Register'
-        />
-        </form>
-    </div>
+        <div className='overlay'>
+            <h1 className='header'>Registration</h1>
+            <div className='content-container'>
+                <form onSubmit={registerUser}>
+                    <label className='text'>Name</label>
+                    <input
+                        className='input'
+                        value={name}
+                        onChange={(x) => setName(x.target.value)}
+                        type='text' 
+                    />
+                    <br/>
+                    <label className='text'>Email</label>
+                    <input 
+                        className='input'
+                        value={email}
+                        onChange={(x) => setEmail(x.target.value)}
+                        type='email' 
+                    />
+                    <br/>
+                    <label className='text'>Password</label>
+                    <input 
+                        className='input'
+                        value={password}
+                        onChange={(x) => setPassword(x.target.value)}
+                        type='password' 
+                    />
+                    <br/>
+                    <input 
+                        className='button'
+                        type='submit'
+                        value='Register'
+                    />
+                    <label className='text-footer'>Already have an account? Click here to login.</label>
+                </form>
+            </div>
+        </div>
     )
 }
 

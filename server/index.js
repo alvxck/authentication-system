@@ -27,14 +27,13 @@ app.listen(HTTP_PORT, () => {
 // Register
 app.post('/register', async (req, res) => {
     try {
-        const newEmail = await bcrypt.hash(req.body.email, 10)
         const newPassword = await bcrypt.hash(req.body.password, 10)
         await User.create({
             name: req.body.name,
-            email: newEmail,
+            email: req.body,email,
             password: newPassword
         })
-        res.json({status: 'ok'})
+        res.json({status: 'ok'})    
     } catch (err) {
         res.json({status: 'error', error: 'Account exists already'})
     }
@@ -42,10 +41,8 @@ app.post('/register', async (req, res) => {
 
 // Login
 app.post('/login', async (req, res) => {
-    const hashEmail = await bcrypt.hash(req.body.email, 10)
-
     const user = await User.findOne({
-        email: hashEmail,
+        email: req.body.email,
     })
 
     if (!user) {

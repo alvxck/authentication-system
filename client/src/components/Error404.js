@@ -1,6 +1,13 @@
-//import React from 'react'
+import React from 'react'
+import './Style.css'
 
-async function Error() {
+
+function Error() {
+    return (
+        <div>
+            <h1>404: This page does not exist.</h1> 
+        </div>
+    )
 
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import jwt from 'jsonwebtoken'
 import { useNavigate } from 'react-router-dom'
+import './Style.css'
 
 function Home() {
     const navigate = useRef(useNavigate()) 
@@ -62,21 +63,24 @@ function Home() {
     }
 
     return (
-        <div>
-            <h1>Home</h1>
-            <p>Your Quote: {quote || 'No quote found'}</p>
-            <form onSubmit={updateQuote}>
-                <input 
-                    type='text' 
-                    placeholder='Quote'
-                    value={tempQuote}
-                    onChange={x => setTempQuote(x.target.value)}
-                />
-                <input 
-                    type='submit'
-                    value='Update Quote'
-                />
-            </form>
+        <div className='overlay'>
+            <div className='content-container'>
+                <h1>Home</h1>
+                <p>Your Quote: {quote || 'No quote found'}</p>
+                <form onSubmit={updateQuote}>
+                    <input 
+                        type='text' 
+                        placeholder='Quote'
+                        value={tempQuote}
+                        onChange={x => setTempQuote(x.target.value)}
+                    />
+                    <br/>
+                    <input 
+                        type='submit'
+                        value='Update Quote'
+                    />
+                </form>
+            </div>
         </div>
     )
 }
