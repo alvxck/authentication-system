@@ -29,6 +29,10 @@ function Register() {
         if (data.status === 'ok') {
             navigate('/login')
         }
+
+        if (data.status === 'error') {
+            alert(data.error)
+        }
     }
 
     return (

@@ -22,12 +22,14 @@ function Login() {
 
         const data = await response.json()
 
-        if(data.user) {
+        if(data.status === 'ok') {
             localStorage.setItem('token', data.user)
             alert('Login Successful')
             window.location.href = '/home'
-        } else {
-            alert('Incorrect username or password')
+        } 
+        
+        if (data.status === 'error') {
+            alert(data.error)
         }
     }
 

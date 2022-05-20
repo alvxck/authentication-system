@@ -5,19 +5,13 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const User = require('./models/user')
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
+const hash = require('js-sha256')
 
 //------------------------------------------------------
 
 app.use(cors())
 app.use(express.json())
 mongoose.connect('mongodb://localhost:27017/login_system')
-
-
-// TODO: 
-// add encryption
-// add password / email specific exceptions
-
 
 // Initialization
 app.listen(HTTP_PORT, () => {
@@ -27,42 +21,47 @@ app.listen(HTTP_PORT, () => {
 // Register
 app.post('/register', async (req, res) => {
     try {
-        const newPassword = await bcrypt.hash(req.body.password, 10)
+        let hashEmail = hash.sha256(req.body.email)
+        let hashPassword = hash.sha256(req.body.password)
+
         await User.create({
             name: req.body.name,
-            email: req.body,email,
-            password: newPassword
+            email: hashEmail,
+            password: hashPassword
         })
-        res.json({status: 'ok'})    
-    } catch (err) {
-        res.json({status: 'error', error: 'Account exists already'})
+
+        res.json({status: 'ok'}) 
+
+    } catch (error) {
+        res.json({status: 'error', error: 'An account with this email exists already. Please try logging in instead.'})
     }
 })
 
 // Login
-app.post('/login', async (req, res) => {
-    const user = await User.findOne({
-        email: req.body.email,
-    })
-
-    if (!user) {
-        return {status: 'error', error: 'Incorrect Login'}
-    } 
-
-    const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
+app.post('/login', async (req, res) => { 
+    try{
+        let user = await User.findOne({
+            email: hash.sha256(req.body.email),
+        })
     
-    if (isPasswordValid) {
-        const token = jwt.sign(
-            {
-            name: user.name,
-            email: user.email
-            }, 
-            '123'
-        )
-        return res.json({status: 'ok', user: token})
-    } else {
-        return res.json({status: 'error', user: false})
+        let isPasswordValid = hash.sha256(req.body.password) == user.password
+        
+        if (isPasswordValid) {
+            const token = jwt.sign(
+                {
+                name: user.name,
+                email: user.email
+                }, 
+                '123'
+            )
+            res.json({status: 'ok', user: token})
+        } else {
+            res.json({status: 'error', error: 'Incorrect password. Please try again.', user: false})
+        }
+    } catch (error) {
+        res.json({status: 'error', error: 'This account does not exist. Please try again or create a new account.'})
     }
+
 })
 
 // Home
