@@ -20,7 +20,7 @@
     z-index: 1000;
 }
 
-.content-container {
+.contentContainer {
     margin: auto;
     min-width: 330px;
     max-width: 330px;
@@ -76,21 +76,21 @@
     color: var(--tertiary-color);
 }
 
-.text-error {
+.textError {
+    display: block;
     text-align: center;
     color: #e60000;
 }
 
-.text-footer {
+.textFooter {
     display: block;
     text-align: center;
     margin: 15px 15px 0 15px;
     color: var(--tertiary-color);
 }
 
-.text-link {
+.textLink {
     font-weight: bold;
     text-decoration: none;
-    color: var(--secondary-color);
+    color: var(--primary-color);
 }
-

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import './Login.css'
+import style from './Login.module.css'
 
 
 function Login() {
@@ -37,35 +37,35 @@ function Login() {
     }
 
     return (
-        <div className='overlay'>
-            <h1 className='header'>Login</h1>
-            <div className='content-container'>
+        <div className={style.overlay}>
+            <h1 className={style.header}>Login</h1>
+            <div className={style.contentContainer}>
                 <form onSubmit={loginUser}>
-                    <label className='text'>Email</label>
+                    <label className={style.text}>Email</label>
                     <input 
-                        className='input'
+                        className={style.input}
                         value={email}
                         onChange={(x) => setEmail(x.target.value)}
                         type='email' 
                     />
                     <br/>    
-                    <label className='text'>Password</label>
+                    <label className={style.text}>Password</label>
                     <input
-                        className='input' 
+                        className={style.input} 
                         value={password}
                         onChange={(x) => setPassword(x.target.value)}
                         type='password' 
                     />
                     <br/>
-                    <label className='text-error'>{error}</label>
+                    <label className={style.textError}>{error}</label>
                     <br/>
                     <input
-                        className='button' 
+                        className={style.button} 
                         type='submit'
                         value='Login'
                     />
-                    <label className='text-footer'>Don't have an account? 
-                        <br/><Link className='text-link' to='/register'>Register</Link>
+                    <label className={style.textFooter}>Don't have an account? 
+                        <br/><Link className={style.textLink} to='/register'>Register</Link>
                     </label>
                 </form>
             </div>

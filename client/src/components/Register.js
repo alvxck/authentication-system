@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import './Register.css'
+import style from './Register.module.css'
 
 
 function Register() {
@@ -37,43 +37,43 @@ function Register() {
     }
 
     return (
-        <div className='overlay'>
-            <h1 className='header'>Registration</h1>
-            <div className='content-container'>
+        <div className={style.overlay}>
+            <h1 className={style.header}>Registration</h1>
+            <div className={style.contentContainer}>
                 <form onSubmit={registerUser}>
-                    <label className='text'>Name</label>
+                    <label className={style.text}>Name</label>
                     <input
-                        className='input'
+                        className={style.input}
                         value={name}
                         onChange={(x) => setName(x.target.value)}
                         type='text' 
                     />
                     <br/>
-                    <label className='text'>Email</label>
+                    <label className={style.text}>Email</label>
                     <input 
-                        className='input'
+                        className={style.input}
                         value={email}
                         onChange={(x) => setEmail(x.target.value)}
                         type='email' 
                     />
                     <br/>
-                    <label className='text'>Password</label>
+                    <label className={style.text}>Password</label>
                     <input 
-                        className='input'
+                        className={style.input}
                         value={password}
                         onChange={(x) => setPassword(x.target.value)}
                         type='password' 
                     />
                     <br/>
-                    <label className='text-error'>{error}</label>
+                    <label className={style.textError}>{error}</label>
                     <br/>
                     <input 
-                        className='button'
+                        className={style.button}
                         type='submit'
                         value='Register'
                     />
-                    <label className='text-footer'>Already have an account?
-                        <br/><Link className='text-link' to='/login'>Login</Link>
+                    <label className={style.textFooter}>Already have an account?
+                        <br/><Link className={style.textLink} to='/login'>Login</Link>
                     </label>
                 </form>
             </div>
