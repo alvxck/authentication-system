@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import './Style.css'
+import { useNavigate, Link } from 'react-router-dom'
+import './Register.css'
 
 
 function Register() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('\u00A0')
     const navigate = useNavigate()
 
     async function registerUser(event) {
@@ -31,7 +32,7 @@ function Register() {
         }
 
         if (data.status === 'error') {
-            alert(data.error)
+            setError(data.error)
         }
     }
 
@@ -64,12 +65,16 @@ function Register() {
                         type='password' 
                     />
                     <br/>
+                    <label className='text-error'>{error}</label>
+                    <br/>
                     <input 
                         className='button'
                         type='submit'
                         value='Register'
                     />
-                    <label className='text-footer'>Already have an account? Click here to login.</label>
+                    <label className='text-footer'>Already have an account?
+                        <br/><Link className='text-link' to='/login'>Login</Link>
+                    </label>
                 </form>
             </div>
         </div>

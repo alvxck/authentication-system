@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import jwt from 'jsonwebtoken'
 import { useNavigate } from 'react-router-dom'
-import './Style.css'
+import './Home.css'
 
 function Home() {
     const navigate = useRef(useNavigate()) 

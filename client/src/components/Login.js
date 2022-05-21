@@ -1,10 +1,14 @@
 import { useState } from 'react'
-import './Style.css'
+import { useNavigate, Link } from 'react-router-dom'
+import './Login.css'
 
 
 function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('\u00A0')
+    const navigate = useNavigate()
+
 
     async function loginUser(event) {
         event.preventDefault()
@@ -24,15 +28,13 @@ function Login() {
 
         if(data.status === 'ok') {
             localStorage.setItem('token', data.user)
-            alert('Login Successful')
-            window.location.href = '/home'
+            navigate('/home')
         } 
-        
+
         if (data.status === 'error') {
-            alert(data.error)
+            setError(data.error)
         }
     }
-
 
     return (
         <div className='overlay'>
@@ -54,13 +56,17 @@ function Login() {
                         onChange={(x) => setPassword(x.target.value)}
                         type='password' 
                     />
-                    <br/>    
+                    <br/>
+                    <label className='text-error'>{error}</label>
+                    <br/>
                     <input
                         className='button' 
                         type='submit'
                         value='Login'
                     />
-                    <label className='text-footer'>Dont have an account? Click here to register.</label>
+                    <label className='text-footer'>Don't have an account? 
+                        <br/><Link className='text-link' to='/register'>Register</Link>
+                    </label>
                 </form>
             </div>
         </div>

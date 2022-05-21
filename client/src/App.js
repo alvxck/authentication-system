@@ -4,13 +4,13 @@ import {
     Routes, 
     Route
 } from 'react-router-dom'
-import Home from './Home'
-import Login from './Login'
-import Register from './Register'
-import Error404 from './Error404'
+import Home from './components/Home'
+import Login from './components/Login'
+import Register from './components/Register'
+import Error404 from './components/Error404'
 
 
-const App = () => {
+function App() {
     return (
         <div>
             <BrowserRouter>

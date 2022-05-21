@@ -1,5 +1,5 @@
 import React from 'react'
-import './Style.css'
+import './Error404.css'
 
 
 function Error() {
