@@ -65,7 +65,7 @@ app.post('/login', async (req, res) => {
 })
 
 // Home
-app.get('/quote', async (req, res) => {
+app.get('/home', async (req, res) => {
     const token = req.headers['x-access-token']
 
     try {
@@ -73,7 +73,7 @@ app.get('/quote', async (req, res) => {
         const email = decode.email
         const user = await User.findOne({ email: email})
 
-        return res.json({status: 'ok', quote: user.quote})
+        return res.json({status: 'ok', name: user.name})
 
     } catch (error) {
         console.log(error)
@@ -81,21 +81,21 @@ app.get('/quote', async (req, res) => {
     }
 })
 
-app.post('/quote', async (req, res) => {
-    const token = req.headers['x-access-token']
+// app.post('/quote', async (req, res) => {
+//     const token = req.headers['x-access-token']
 
-    try {
-        const decode = jwt.verify(token, '123')
-        const email = decode.email
-        await User.updateOne(
-            { email: email}, 
-            { $set: {quote: req.body.quote}}
-        )
+//     try {
+//         const decode = jwt.verify(token, '123')
+//         const email = decode.email
+//         await User.updateOne(
+//             { email: email}, 
+//             { $set: {quote: req.body.quote}}
+//         )
 
-        return res.json({status: 'ok'})
+//         return res.json({status: 'ok'})
 
-    } catch (error) {
-        console.log(error)
-        res.json({ status: 'error', error: 'invalid token' })
-    }
-})
+//     } catch (error) {
+//         console.log(error)
+//         res.json({ status: 'error', error: 'invalid token' })
+//     }
+// })
