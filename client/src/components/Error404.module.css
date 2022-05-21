@@ -1,0 +1,50 @@
+
+:root {
+    --primary-color: #103783;
+    --secondary-color: #9bafd9; 
+    --tertiary-color: #f2f2f2;
+}
+
+* {
+    font-family: monospace;
+    font-size: 16px;
+}
+
+.overlay{
+    background: linear-gradient(var(--primary-color), var(--secondary-color));
+    position: fixed;
+    width: 100%;
+    height :100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+}
+
+.header {
+    margin: auto;
+    max-width: fit-content;
+    font-size: 150px;
+    color: var(--secondary-color);
+}
+
+.text {
+    margin: auto auto 100px auto;
+    max-width: fit-content;
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.textLink {
+    margin: auto;
+    max-width: fit-content;
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
+.textLink:hover {
+    color: var(--primary-color)
+}
