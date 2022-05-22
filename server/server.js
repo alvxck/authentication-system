@@ -81,21 +81,21 @@ app.get('/home', async (req, res) => {
     }
 })
 
-// app.post('/quote', async (req, res) => {
-//     const token = req.headers['x-access-token']
+app.post('/update_name', async (req, res) => {
+    const token = req.headers['x-access-token']
 
-//     try {
-//         const decode = jwt.verify(token, '123')
-//         const email = decode.email
-//         await User.updateOne(
-//             { email: email}, 
-//             { $set: {quote: req.body.quote}}
-//         )
+    try {
+        const decode = jwt.verify(token, '123')
+        const email = decode.email
+        await User.updateOne(
+            { email: email}, 
+            { $set: {name: req.body.name}}
+        )
 
-//         return res.json({status: 'ok'})
+        return res.json({status: 'ok'})
 
-//     } catch (error) {
-//         console.log(error)
-//         res.json({ status: 'error', error: 'invalid token' })
-//     }
-// })
+    } catch (error) {
+        console.log(error)
+        res.json({ status: 'error', error: 'invalid token' })
+    }
+})
