@@ -14,6 +14,7 @@ function Home() {
             verifyUser()
         } else {
             localStorage.removeItem('token')
+            alert('invalid token')
             navigate('/register')
         }
     })
@@ -60,6 +61,11 @@ function Home() {
             navigate('/register')
         }
     }
+
+    function logout() {
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
     
 
     return (
@@ -79,6 +85,11 @@ function Home() {
                         value='Update Quote'
                     />
                 </form>
+                <input
+                    type='button'
+                    value='Logout'
+                    onClick={logout}
+                />
             </div>
         </div>
     )
