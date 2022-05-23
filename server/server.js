@@ -52,7 +52,10 @@ app.post('/login', async (req, res) => {
                 name: user.name,
                 email: user.email
                 }, 
-                '123'
+                '123',
+                {
+                    expiresIn: '24h'
+                }
             )
             res.json({status: 'ok', user: token})
         } else {

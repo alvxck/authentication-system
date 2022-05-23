@@ -9,6 +9,24 @@ function Home() {
 
     useEffect(() => {
         const token = localStorage.getItem('token')
+        
+        async function verifyUser() {
+            const req = await fetch('http://localhost:1337/home', {
+                headers: {
+                    'x-access-token': localStorage.getItem('token')
+                }
+            })
+    
+            const data = await req.json()
+            console.log(data)
+    
+            if (data.status === 'ok') {
+                setName(data.name)
+            } else {
+                alert(data.error)
+                navigate('/register')
+            }
+        }
 
         if(token) {
             verifyUser()
@@ -17,25 +35,9 @@ function Home() {
             alert('invalid token')
             navigate('/register')
         }
-    })
 
-    async function verifyUser() {
-        const req = await fetch('http://localhost:1337/home', {
-            headers: {
-                'x-access-token': localStorage.getItem('token')
-            }
-        })
+    }, [navigate])
 
-        const data = await req.json()
-        console.log(data)
-
-        if (data.status === 'ok') {
-            setName(data.name)
-        } else {
-            alert(data.error)
-            navigate('/register')
-        }
-    }
 
     async function updateName(event) {
         event.preventDefault()
@@ -82,7 +84,7 @@ function Home() {
                     <br/>
                     <input 
                         type='submit'
-                        value='Update Quote'
+                        value='Save'
                     />
                 </form>
                 <input
