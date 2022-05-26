@@ -84,7 +84,8 @@ app.get('/home', async (req, res) => {
     }
 })
 
-app.post('/update_name', async (req, res) => {
+// Change Name
+app.post('/home/update_name', async (req, res) => {
     const token = req.headers['x-access-token']
 
     try {

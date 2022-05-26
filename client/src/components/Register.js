@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import style from './Register.module.css'
+import style from '../assets/css/Register.module.css'
 
 
 function Register() {

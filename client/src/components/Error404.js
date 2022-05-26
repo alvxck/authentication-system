@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import style from './Error404.module.css'
+import style from '../assets/css/Error404.module.css'
 
 
 function Error() {

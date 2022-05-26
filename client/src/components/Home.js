@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import './Home.module.css'
+import style from '../assets/css/Home.module.css'
 
 function Home() {
     const navigate = useNavigate()
@@ -42,7 +42,7 @@ function Home() {
     async function updateName(event) {
         event.preventDefault()
 
-        const req = await fetch('http://localhost:1337/update_name', {
+        const req = await fetch('http://localhost:1337/home/update_name', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -71,10 +71,27 @@ function Home() {
     
 
     return (
-        <div className='overlay'>
-            <div className='content-container'>
-                <h1>Hello {name}</h1>
-                <form onSubmit={updateName}>
+        <div className={style.overlay}>
+            <h1 className={style.header}>Hello {name}</h1>
+            <div className={style.contentContainer}>
+                <input
+                    className={style.button}
+                    type='button'
+                    value='Edit Account'
+                    // onClick={}
+                />
+                <input
+                    className={style.button}
+                    type='button'
+                    value='Logout'
+                    onClick={logout}
+                />
+                <img 
+                    className={style.image}
+                    src={require('../assets/images/F355_stance.jpg').default} 
+                    alt='home wallpaper'/>
+            </div>
+            <form onSubmit={updateName}>
                     <input 
                         type='text' 
                         placeholder='New Name'
@@ -87,12 +104,6 @@ function Home() {
                         value='Save'
                     />
                 </form>
-                <input
-                    type='button'
-                    value='Logout'
-                    onClick={logout}
-                />
-            </div>
         </div>
     )
 }
