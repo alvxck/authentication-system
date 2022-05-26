@@ -1,6 +1,6 @@
 # Login System
 
-The goal of this project is to develop a responsive MERN web application with a simple login / registration system that verifies user information authenticity.
+The goal of this project is to develop a responsive login and registration system. The project is developed using the MERN stack and follows standard REST practices for data transmission with JSON.
 
 ## Frontend
 * Built using **React**, **Javascript**, **HTML**, and **CSS**.
