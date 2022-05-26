@@ -13,7 +13,7 @@ function Register() {
     async function registerUser(event) {
         event.preventDefault()
 
-        const response = await fetch('http://localhost:1337/register', {
+        const response = await fetch('http://localhost:1337/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json' 
@@ -28,7 +28,7 @@ function Register() {
         const data = await response.json()
 
         if (data.status === 'ok') {
-            navigate('/login')
+            navigate('/api/login')
         }
 
         if (data.status === 'error') {
@@ -73,7 +73,7 @@ function Register() {
                         value='Register'
                     />
                     <label className={style.textFooter}>Already have an account?
-                        <br/><Link className={style.textLink} to='/login'>Login</Link>
+                        <br/><Link className={style.textLink} to='/api/login'>Login</Link>
                     </label>
                 </form>
             </div>

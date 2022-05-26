@@ -15,9 +15,9 @@ function App() {
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route path='/home' element={<Home />}/>
-                    <Route path='/login' element={<Login />}/>
-                    <Route path='/register' element={<Register />}/>
+                    <Route path='/api/home' element={<Home />}/>
+                    <Route path='/api/login' element={<Login />}/>
+                    <Route path='/api/register' element={<Register />}/>
                     <Route path='*' element={<Error404 />}/>
                 </Routes>
             </BrowserRouter>

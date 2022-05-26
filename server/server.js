@@ -19,7 +19,7 @@ app.listen(HTTP_PORT, () => {
 })
 
 // Register
-app.post('/register', async (req, res) => {
+app.post('/api/register', async (req, res) => {
     try {
         let hashEmail = hash.sha256(req.body.email)
         let hashPassword = hash.sha256(req.body.password)
@@ -38,7 +38,7 @@ app.post('/register', async (req, res) => {
 })
 
 // Login
-app.post('/login', async (req, res) => { 
+app.post('/api/login', async (req, res) => { 
     try{
         let user = await User.findOne({
             email: hash.sha256(req.body.email),
@@ -68,7 +68,7 @@ app.post('/login', async (req, res) => {
 })
 
 // Home
-app.get('/home', async (req, res) => {
+app.get('/api/home', async (req, res) => {
     const token = req.headers['x-access-token']
 
     try {

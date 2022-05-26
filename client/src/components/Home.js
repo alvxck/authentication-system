@@ -11,7 +11,7 @@ function Home() {
         const token = localStorage.getItem('token')
         
         async function verifyUser() {
-            const req = await fetch('http://localhost:1337/home', {
+            const req = await fetch('http://localhost:1337/api/home', {
                 headers: {
                     'x-access-token': localStorage.getItem('token')
                 }
@@ -24,7 +24,7 @@ function Home() {
                 setName(data.name)
             } else {
                 alert(data.error)
-                navigate('/register')
+                navigate('/api/register')
             }
         }
 
@@ -33,7 +33,7 @@ function Home() {
         } else {
             localStorage.removeItem('token')
             alert('invalid token')
-            navigate('/register')
+            navigate('/api/register')
         }
 
     }, [navigate])
@@ -42,7 +42,7 @@ function Home() {
     async function updateName(event) {
         event.preventDefault()
 
-        const req = await fetch('http://localhost:1337/home/update_name', {
+        const req = await fetch('http://localhost:1337/api/home/update_name', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -60,13 +60,13 @@ function Home() {
             setTempName('')
         } else {
             alert(data.error)
-            navigate('/register')
+            navigate('/api/register')
         }
     }
 
     function logout() {
         localStorage.removeItem('token')
-        navigate('/login')
+        navigate('/api/login')
     }
     
 

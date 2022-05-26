@@ -13,7 +13,7 @@ function Login() {
     async function loginUser(event) {
         event.preventDefault()
 
-        const response = await fetch('http://localhost:1337/login', {
+        const response = await fetch('http://localhost:1337/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json' 
@@ -28,7 +28,7 @@ function Login() {
 
         if(data.status === 'ok') {
             localStorage.setItem('token', data.user)
-            navigate('/home')
+            navigate('/api/home')
         } 
 
         if (data.status === 'error') {
@@ -65,7 +65,7 @@ function Login() {
                         value='Login'
                     />
                     <label className={style.textFooter}>Don't have an account? 
-                        <br/><Link className={style.textLink} to='/register'>Register</Link>
+                        <br/><Link className={style.textLink} to='/api/register'>Register</Link>
                     </label>
                 </form>
             </div>

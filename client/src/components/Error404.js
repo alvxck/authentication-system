@@ -9,9 +9,9 @@ function Error() {
             <div>
                 <h1 className={style.header}>Error404.</h1> 
                 <p className={style.text}>Page not found</p>
-                <Link className={style.textLink} to='/login'>Login ↗</Link>
+                <Link className={style.textLink} to='/api/login'>Login ↗</Link>
                 <br/>
-                <Link className={style.textLink} to='/register'>Register ↗</Link>
+                <Link className={style.textLink} to='/api/register'>Register ↗</Link>
             </div>
         </div>
     )
