@@ -1,17 +1,26 @@
 const express = require('express')
 const app = express()
-const HTTP_PORT = process.env.PORT || 1337;
 const cors = require('cors')
 const mongoose = require('mongoose')
 const User = require('./models/user')
 const jwt = require('jsonwebtoken')
 const hash = require('js-sha256')
+const HTTP_PORT = process.env.PORT || 1337
 
 //------------------------------------------------------
 
-app.use(cors())
-app.use(express.json())
-mongoose.connect('mongodb://localhost:27017/login_system')
+app.use(cors());
+app.use(express.json());
+
+// Database connection
+(async ()=> {
+    try {
+        await mongoose.connect('mongodb://localhost:27017/login_system')
+    } catch (error) {
+        console.log('Connection to database failed. Error: ' + error)
+    }
+})()
+
 
 // Initialization
 app.listen(HTTP_PORT, () => {
