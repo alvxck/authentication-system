@@ -5,10 +5,13 @@ const mongoose = require('mongoose')
 const User = require('./models/user')
 const jwt = require('jsonwebtoken')
 const hash = require('js-sha256')
+require('dotenv').config()
 const HTTP_PORT = process.env.PORT || 1337
 
 //------------------------------------------------------
 
+
+// Config
 app.use(cors());
 app.use(express.json());
 
@@ -61,7 +64,7 @@ app.post('/api/login', async (req, res) => {
                 name: user.name,
                 email: user.email
                 }, 
-                '123',
+                process.env.TOKEN_SECRET,
                 {
                     expiresIn: '24h'
                 }
@@ -81,7 +84,7 @@ app.get('/api/home', async (req, res) => {
     const token = req.headers['x-access-token']
 
     try {
-        const decode = jwt.verify(token, '123')
+        const decode = jwt.verify(token, process.env.TOKEN_SECRET)
         const email = decode.email
         const user = await User.findOne({ email: email})
 
@@ -98,7 +101,7 @@ app.post('/home/update_name', async (req, res) => {
     const token = req.headers['x-access-token']
 
     try {
-        const decode = jwt.verify(token, '123')
+        const decode = jwt.verify(token, process.env.TOKEN_SECRET)
         const email = decode.email
         await User.updateOne(
             { email: email}, 
