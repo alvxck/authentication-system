@@ -115,3 +115,20 @@ app.post('/home/update_name', async (req, res) => {
         res.json({ status: 'error', error: 'invalid token' })
     }
 })
+
+
+// Verify User Token
+function verifyToken(req, res, next) {
+    try{
+        const authHeader = req.headers['authorization']
+
+        jwt.verify(authHeader, process.env.TOKEN_SECRET)
+        res.json({status: 'ok'})
+
+        next();
+    } catch (err) {
+        res.json({status: 'error', error: 'invalid token'})
+
+        next();
+    }
+}
