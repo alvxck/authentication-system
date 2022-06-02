@@ -19,10 +19,10 @@ app.use(express.json());
 (async ()=> {
     try {
         await mongoose.connect('mongodb://localhost:27017/login_system')
-    } catch (error) {
-        console.log('Connection to database failed. Error: ' + error)
+    } catch (err) {
+        console.log('Connection to database failed. Error: ' + err)
     }
-})()
+})();
 
 
 // Initialization
@@ -44,7 +44,7 @@ app.post('/api/register', async (req, res) => {
 
         res.json({status: 'ok'}) 
 
-    } catch (error) {
+    } catch (err) {
         res.json({status: 'error', error: 'An account with this email exists already. Please try logging in instead.'})
     }
 })
@@ -73,62 +73,54 @@ app.post('/api/login', async (req, res) => {
         } else {
             res.json({status: 'error', error: 'Incorrect password. Please try again.', user: false})
         }
-    } catch (error) {
+    } catch (err) {
         res.json({status: 'error', error: 'This account does not exist. Please try again or create a new account.'})
     }
 
 })
 
 // Home
-app.get('/api/home', async (req, res) => {
-    const token = req.headers['x-access-token']
-
+app.get('/api/home', verifyToken, async (req, res) => {
     try {
-        const decode = jwt.verify(token, process.env.TOKEN_SECRET)
-        const email = decode.email
-        const user = await User.findOne({ email: email})
+        const authHeader = req.headers['authorization']
 
-        return res.json({status: 'ok', name: user.name})
+        const user = await User.findOne(
+            { email: jwt.decode(authHeader).email}
+        )
 
-    } catch (error) {
-        console.log(error)
-        res.json({ status: 'error', error: 'invalid token' })
+        res.json({status: 'ok', name: user.name})
+
+    } catch (err) {
+        res.json({ status: 'error', error: 'user not found' })
     }
 })
 
 // Change Name
-app.post('/home/update_name', async (req, res) => {
-    const token = req.headers['x-access-token']
-
+app.post('/api/home/update_name', verifyToken, async (req, res) => {
     try {
-        const decode = jwt.verify(token, process.env.TOKEN_SECRET)
-        const email = decode.email
+        const authHeader = req.headers['authorization']
+
         await User.updateOne(
-            { email: email}, 
+            { email: jwt.decode(authHeader).email}, 
             { $set: {name: req.body.name}}
         )
 
-        return res.json({status: 'ok'})
+        res.json({status: 'ok'})
 
-    } catch (error) {
-        console.log(error)
+    } catch (err) {
         res.json({ status: 'error', error: 'invalid token' })
     }
 })
 
 
-// Verify User Token
+// User Token Verification
 function verifyToken(req, res, next) {
     try{
         const authHeader = req.headers['authorization']
-
         jwt.verify(authHeader, process.env.TOKEN_SECRET)
-        res.json({status: 'ok'})
 
         next();
     } catch (err) {
         res.json({status: 'error', error: 'invalid token'})
-
-        next();
     }
 }

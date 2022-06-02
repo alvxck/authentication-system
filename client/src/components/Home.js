@@ -7,34 +7,25 @@ function Home() {
     const [name, setName] = useState('')
     const [tempName, setTempName] = useState('')
 
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        
-        async function verifyUser() {
+    useEffect(() => {        
+        (async function verifyUser() {
+            console.log('hello')
             const req = await fetch('http://localhost:1337/api/home', {
                 headers: {
-                    'x-access-token': localStorage.getItem('token')
+                    'authorization': localStorage.getItem('token')
                 }
             })
     
             const data = await req.json()
-            console.log(data)
     
             if (data.status === 'ok') {
                 setName(data.name)
             } else {
+                localStorage.removeItem('token')
                 alert(data.error)
                 navigate('/api/register')
             }
-        }
-
-        if(token) {
-            verifyUser()
-        } else {
-            localStorage.removeItem('token')
-            alert('invalid token')
-            navigate('/api/register')
-        }
+        })();
 
     }, [navigate])
 
@@ -46,7 +37,7 @@ function Home() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-access-token': localStorage.getItem('token')
+                'authorization': localStorage.getItem('token')
             },
             body: JSON.stringify({
                 name: tempName
