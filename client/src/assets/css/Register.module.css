@@ -7,7 +7,6 @@
 
 * {
     font-family: monospace;
-    font-size: 16px;
 }
 
 .overlay{
@@ -15,14 +14,14 @@
     position: fixed;
     width: 100%;
     height :100%;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     z-index: 1000;
 }
 
 .contentContainer {
     margin: auto;
-    min-width: 330px;
+    width: 90%;
     max-width: 330px;
     padding: 20px;
 
@@ -41,11 +40,12 @@
 }
 
 .input {
-    margin: 15px 0;
+    margin: 1em 0;
     width: 100%;
-    padding: 9px 0;
-    font-size: 20px;
+    padding: .75em;
+    font-size: 1rem;
 
+    box-sizing: border-box;
     border-radius: 5px;
     border-style: none;
     color: var(--primary-color);
@@ -55,6 +55,10 @@
     outline: none;
     transition: all 0.3s ease;
     box-shadow: 0 0 0 4px var(--primary-color);
+}
+
+.checkBox {
+    transform: scale(1.5);
 }
 
 .button {
@@ -94,4 +98,3 @@
     text-decoration: none;
     color: var(--primary-color);
 }
-

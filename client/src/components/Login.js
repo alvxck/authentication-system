@@ -4,10 +4,11 @@ import style from '../assets/css/Login.module.css'
 
 
 function Login() {
+    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('\u00A0')
-    const navigate = useNavigate()
+    const [isDisplayPassword, setIsDisplayPassword] = useState(false)
 
 
     async function loginUser(event) {
@@ -36,6 +37,10 @@ function Login() {
         }
     }
 
+    function togglePassword() {
+        setIsDisplayPassword((isDisplayPassword) => !isDisplayPassword)
+    }
+
     return (
         <div className={style.overlay}>
             <h1 className={style.header}>Login</h1>
@@ -44,6 +49,7 @@ function Login() {
                     <label className={style.text}>Email</label>
                     <input 
                         className={style.input}
+                        placeholder='Enter Email' 
                         value={email}
                         onChange={(x) => setEmail(x.target.value)}
                         type='email' 
@@ -51,11 +57,20 @@ function Login() {
                     <br/>    
                     <label className={style.text}>Password</label>
                     <input
-                        className={style.input} 
+                        className={style.input}
+                        placeholder='Enter Password' 
                         value={password}
                         onChange={(x) => setPassword(x.target.value)}
-                        type='password' 
+                        type={isDisplayPassword ? 'text': 'password'} 
                     />
+                    <br/>
+                    <input
+                        className={style.checkBox}
+                        type='checkbox'
+                        checked={isDisplayPassword}
+                        onChange={togglePassword}
+                    />
+                    <label className={style.text}> Show Password</label>
                     <br/>
                     <label className={style.textError}>{error}</label>
                     <br/>

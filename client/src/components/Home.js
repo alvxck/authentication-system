@@ -50,6 +50,7 @@ function Home() {
             setName(tempName)
             setTempName('')
         } else {
+            localStorage.removeItem('token')
             alert(data.error)
             navigate('/api/register')
         }
