@@ -10,6 +10,10 @@
 }
 
 .overlay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     background: linear-gradient(var(--primary-color), var(--secondary-color));
     position: fixed;
     width: 100%;
@@ -20,38 +24,31 @@
 }
 
 .contentContainer {
-    margin: 1em auto;
     display: flex;
-    width: 60%;
-    padding: 0;
-
-    border-radius: 15px;
-    background-color: var(--secondary-color);
+    justify-content: center;
+    flex-direction: column;
 }
 
 .header {
-    margin: auto;
-    width: 50%;
-    max-width: fit-content;
-    padding: 20px;
+    margin: auto 0;
 
+    font-size: 4rem;
+    text-align: center;
     color: var(--secondary-color);
-    font-size: 50px;
-}
-
-.image {
-    margin: auto;
-    display: block;
-    width: 60%;
 }
 
 .button {
-    font-weight: bold;
-    background: none;
+    margin: auto 0;
+
     border: none;
-    color: var(--primary-color);
+    background: none;
+
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--secondary-color);
 }
 
 .button:hover {
     cursor: pointer;
+    color: var(--primary-color)
 }

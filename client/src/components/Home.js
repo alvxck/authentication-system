@@ -9,7 +9,6 @@ function Home() {
 
     useEffect(() => {        
         (async function verifyUser() {
-            console.log('hello')
             const req = await fetch('http://localhost:1337/api/home', {
                 headers: {
                     'authorization': localStorage.getItem('token')
@@ -64,27 +63,21 @@ function Home() {
 
     return (
         <div className={style.overlay}>
-            <h1 className={style.header}>Welcome {name}</h1>
             <div className={style.contentContainer}>
-                <img 
-                    className={style.image}
-                    src={require('../assets/images/F355.jpg').default} 
-                    alt='home wallpaper'
-                />
+                <h1 className={style.header}>Welcome {name}</h1> 
                 <input
-                    className={style.button}
-                    type='button'
+                    className={style.button} 
+                    //onClick={}
+                    type='submit'
                     value='Settings'
-                    // onClick={}
                 />
                 <input
-                    className={style.button}
-                    type='button'
-                    value='Logout'
+                    className={style.button} 
                     onClick={logout}
+                    type='submit'
+                    value='Logout'
                 />
-            </div>
-            <form onSubmit={updateName}>
+                <form onSubmit={updateName}>
                     <input 
                         type='text' 
                         placeholder='New Name'
@@ -97,7 +90,9 @@ function Home() {
                         value='Save'
                     />
                 </form>
+            </div>
         </div>
+
     )
 }
 

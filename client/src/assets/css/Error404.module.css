@@ -10,6 +10,10 @@
 }
 
 .overlay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     background: linear-gradient(var(--primary-color), var(--secondary-color));
     position: fixed;
     width: 100%;
@@ -20,33 +24,31 @@
 }
 
 .contentContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .header {
-    margin: auto;
-    width: 90%;
-    max-width: fit-content;
+    margin: auto 0;
+
     font-size: 4rem;
     text-align: center;
     color: var(--secondary-color);
 }
 
-.textLink {
-    margin: auto;
-    width: 90%;
-    max-width: fit-content;
-    display: block;
+.button {
+    margin: auto 0;
+
+    border: none;
+    background: none;
+
     font-size: 2rem;
     font-weight: bold;
-    text-decoration: none;
     color: var(--secondary-color);
 }
 
-.textLink:hover {
+.button:hover {
+    cursor: pointer;
     color: var(--primary-color)
 }
