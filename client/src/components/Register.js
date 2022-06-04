@@ -43,7 +43,7 @@ function Register() {
 
     return (
         <div className={style.overlay}>
-            <h1 className={style.header}>Registration</h1>
+            <h1 className={style.header}>Sign Up</h1>
             <div className={style.contentContainer}>
                 <form onSubmit={registerUser}>
                     <label className={style.text}>Name</label>

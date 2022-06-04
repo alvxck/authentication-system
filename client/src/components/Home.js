@@ -64,12 +64,17 @@ function Home() {
 
     return (
         <div className={style.overlay}>
-            <h1 className={style.header}>Hello {name}</h1>
+            <h1 className={style.header}>Welcome {name}</h1>
             <div className={style.contentContainer}>
+                <img 
+                    className={style.image}
+                    src={require('../assets/images/F355.jpg').default} 
+                    alt='home wallpaper'
+                />
                 <input
                     className={style.button}
                     type='button'
-                    value='Edit Account'
+                    value='Settings'
                     // onClick={}
                 />
                 <input
@@ -78,10 +83,6 @@ function Home() {
                     value='Logout'
                     onClick={logout}
                 />
-                <img 
-                    className={style.image}
-                    src={require('../assets/images/F355_stance.jpg').default} 
-                    alt='home wallpaper'/>
             </div>
             <form onSubmit={updateName}>
                     <input 

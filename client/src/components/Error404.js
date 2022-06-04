@@ -6,9 +6,9 @@ import style from '../assets/css/Error404.module.css'
 function Error() {
     return (
         <div className={style.overlay}>
-            <div>
-                <h1 className={style.header}>Error404.</h1> 
-                <p className={style.text}>Page not found</p>
+            <div className={style.contentContainer}>
+                <h1 className={style.header}><i>Error404: </i>Page not found.</h1> 
+                <br/>
                 <Link className={style.textLink} to='/api/login'>Login ↗</Link>
                 <br/>
                 <Link className={style.textLink} to='/api/register'>Register ↗</Link>

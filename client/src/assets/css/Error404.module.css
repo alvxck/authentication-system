@@ -7,7 +7,6 @@
 
 * {
     font-family: monospace;
-    font-size: 16px;
 }
 
 .overlay{
@@ -15,31 +14,34 @@
     position: fixed;
     width: 100%;
     height :100%;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     z-index: 1000;
+}
+
+.contentContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
 
 .header {
     margin: auto;
+    width: 90%;
     max-width: fit-content;
-    font-size: 150px;
-    color: var(--secondary-color);
-}
-
-.text {
-    margin: auto auto 100px auto;
-    max-width: fit-content;
-    font-size: 30px;
-    font-weight: bold;
+    font-size: 4rem;
+    text-align: center;
     color: var(--secondary-color);
 }
 
 .textLink {
     margin: auto;
+    width: 90%;
     max-width: fit-content;
     display: block;
-    font-size: 30px;
+    font-size: 2rem;
     font-weight: bold;
     text-decoration: none;
     color: var(--secondary-color);
