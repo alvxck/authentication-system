@@ -79,6 +79,18 @@ app.post('/api/login', async (req, res) => {
 
 })
 
+// User Token Verification Middleware
+function verifyToken(req, res, next) {
+    try{
+        const authHeader = req.headers['authorization']
+        jwt.verify(authHeader, process.env.TOKEN_SECRET)
+
+        next();
+    } catch (err) {
+        res.json({status: 'error', error: 'invalid token'})
+    }
+}
+
 // Home
 app.get('/api/home', verifyToken, async (req, res) => {
     try {
@@ -95,8 +107,8 @@ app.get('/api/home', verifyToken, async (req, res) => {
     }
 })
 
-// Change Name
-app.post('/api/home/update_name', verifyToken, async (req, res) => {
+// Update Name
+app.put('/api/home/update_name', verifyToken, async (req, res) => {
     try {
         const authHeader = req.headers['authorization']
 
@@ -112,15 +124,42 @@ app.post('/api/home/update_name', verifyToken, async (req, res) => {
     }
 })
 
-
-// User Token Verification
-function verifyToken(req, res, next) {
-    try{
+// Update Email
+app.put('/api/home/update_email', verifyToken, async (req, res) => {
+    try {
         const authHeader = req.headers['authorization']
-        jwt.verify(authHeader, process.env.TOKEN_SECRET)
+        const hashEmail = hash.sha256(req.body.email)
 
-        next();
+        await User.updateOne(
+            { email: jwt.decode(authHeader).email}, 
+            { $set: {email: hashEmail}}
+        )
+
+        res.json({status: 'ok'})
+
     } catch (err) {
-        res.json({status: 'error', error: 'invalid token'})
+        res.json({ status: 'error', error: 'invalid token' })
     }
-}
+})
+
+// Update Password
+app.put('/api/home/update_password', verifyToken, async (req, res) => {
+    try {
+        const authHeader = req.headers['authorization']
+        const hashPassword = hash.sha256(req.body.password)
+
+        await User.updateOne(
+            { email: jwt.decode(authHeader).email}, 
+            { $set: {password: hashPassword}}
+        )
+
+        res.json({status: 'ok'})
+
+    } catch (err) {
+        res.json({ status: 'error', error: 'invalid token' })
+    }
+})
+
+// Delete User
+
+// Logout

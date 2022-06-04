@@ -10,6 +10,7 @@ function Home() {
     useEffect(() => {        
         (async function verifyUser() {
             const req = await fetch('http://localhost:1337/api/home', {
+                method: 'GET',
                 headers: {
                     'authorization': localStorage.getItem('token')
                 }
@@ -33,7 +34,7 @@ function Home() {
         event.preventDefault()
 
         const req = await fetch('http://localhost:1337/api/home/update_name', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'authorization': localStorage.getItem('token')
