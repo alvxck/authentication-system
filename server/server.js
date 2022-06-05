@@ -161,5 +161,19 @@ app.put('/api/home/update_password', verifyToken, async (req, res) => {
 })
 
 // Delete User
+app.delete('/api/home/delete_account', verifyToken, async (req, res) =>{
+    try {
+        const authHeader = req.header['authorization']
+
+        await User.deleteOne(
+            {email: jwt.decode(authHeader).email},
+        )
+
+        res.json({status: 'ok'})
+
+    } catch (err) {
+        res.json({ status: 'error', error: 'invalid token' })
+    }
+})
 
 // Logout
