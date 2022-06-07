@@ -79,11 +79,13 @@ app.post('/api/login', async (req, res) => {
 
 })
 
+// Logout
+
 // User Token Verification Middleware
 function verifyToken(req, res, next) {
     try{
-        const authHeader = req.headers['authorization']
-        jwt.verify(authHeader, process.env.TOKEN_SECRET)
+        const authHeader = req.headers['authorization'].split(' ')
+        jwt.verify(authHeader[1], process.env.TOKEN_SECRET)
 
         next();
     } catch (err) {
@@ -94,10 +96,10 @@ function verifyToken(req, res, next) {
 // Home
 app.get('/api/home', verifyToken, async (req, res) => {
     try {
-        const authHeader = req.headers['authorization']
+        const authHeader = req.headers['authorization'].split(' ')
 
         const user = await User.findOne(
-            { email: jwt.decode(authHeader).email}
+            { email: jwt.decode(authHeader[1]).email}
         )
 
         res.json({status: 'ok', name: user.name})
@@ -110,29 +112,11 @@ app.get('/api/home', verifyToken, async (req, res) => {
 // Update Name
 app.put('/api/home/update_name', verifyToken, async (req, res) => {
     try {
-        const authHeader = req.headers['authorization']
+        const authHeader = req.headers['authorization'].split(' ')
 
         await User.updateOne(
-            { email: jwt.decode(authHeader).email}, 
+            { email: jwt.decode(authHeader[1]).email}, 
             { $set: {name: req.body.name}}
-        )
-
-        res.json({status: 'ok'})
-
-    } catch (err) {
-        res.json({ status: 'error', error: 'invalid token' })
-    }
-})
-
-// Update Email
-app.put('/api/home/update_email', verifyToken, async (req, res) => {
-    try {
-        const authHeader = req.headers['authorization']
-        const hashEmail = hash.sha256(req.body.email)
-
-        await User.updateOne(
-            { email: jwt.decode(authHeader).email}, 
-            { $set: {email: hashEmail}}
         )
 
         res.json({status: 'ok'})
@@ -145,11 +129,11 @@ app.put('/api/home/update_email', verifyToken, async (req, res) => {
 // Update Password
 app.put('/api/home/update_password', verifyToken, async (req, res) => {
     try {
-        const authHeader = req.headers['authorization']
+        const authHeader = req.headers['authorization'].split(' ')
         const hashPassword = hash.sha256(req.body.password)
 
         await User.updateOne(
-            { email: jwt.decode(authHeader).email}, 
+            { email: jwt.decode(authHeader[1]).email}, 
             { $set: {password: hashPassword}}
         )
 
@@ -163,10 +147,10 @@ app.put('/api/home/update_password', verifyToken, async (req, res) => {
 // Delete User
 app.delete('/api/home/delete_account', verifyToken, async (req, res) =>{
     try {
-        const authHeader = req.header['authorization']
+        const authHeader = req.header['authorization'].split(' ')
 
         await User.deleteOne(
-            {email: jwt.decode(authHeader).email},
+            {email: jwt.decode(authHeader[1]).email},
         )
 
         res.json({status: 'ok'})
@@ -175,5 +159,3 @@ app.delete('/api/home/delete_account', verifyToken, async (req, res) =>{
         res.json({ status: 'error', error: 'invalid token' })
     }
 })
-
-// Logout

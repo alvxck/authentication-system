@@ -12,7 +12,7 @@ function Home() {
             const req = await fetch('http://localhost:1337/api/home', {
                 method: 'GET',
                 headers: {
-                    'authorization': localStorage.getItem('token')
+                    'authorization': `Bearer ${localStorage.getItem('token')}` 
                 }
             })
     
@@ -37,7 +37,7 @@ function Home() {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'authorization': localStorage.getItem('token')
+                'authorization': `Bearer ${localStorage.getItem('token')}` 
             },
             body: JSON.stringify({
                 name: tempName
