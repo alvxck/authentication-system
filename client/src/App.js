@@ -15,10 +15,10 @@ function App() {
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route path='/api/home' element={<Home />}/>
-                    <Route path='/api/login' element={<Login />}/>
-                    <Route path='/api/register' element={<Register />}/>
-                    <Route path='*' element={<Error404 />}/>
+                    <Route exact path='/api/home' element={<Home />}/>
+                    <Route exact path='/api/login' element={<Login />}/>
+                    <Route exact path='/api/register' element={<Register />}/>
+                    <Route exact path='*' element={<Error404 />}/>
                 </Routes>
             </BrowserRouter>
         </div>

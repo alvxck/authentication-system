@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import style from '../assets/css/Error404.module.css'
+import style from './Error404.module.css'
 
 
 function Error() {
