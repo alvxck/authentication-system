@@ -2,7 +2,7 @@ import React from 'react'
 import {
     BrowserRouter,
     Routes, 
-    Route
+    Route, 
 } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -15,7 +15,7 @@ function App() {
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route exact path='/api/home' element={<Home />}/>
+                    <Route exact path='/api/:id' element={<Home />}/>
                     <Route exact path='/api/login' element={<Login />}/>
                     <Route exact path='/api/register' element={<Register />}/>
                     <Route exact path='*' element={<Error404 />}/>

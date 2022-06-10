@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import style from './Home.module.css'
 
 function Home() {
+    const id = useParams();
     const navigate = useNavigate()
     const [name, setName] = useState('')
     const [tempName, setTempName] = useState('')
 
+    console.log(id)
+
     useEffect(() => {        
         (async function verifyUser() {
-            const req = await fetch('http://localhost:1337/api/home', {
+            const req = await fetch(`http://localhost:1337/api/${id}`, {
                 method: 'GET',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('token')}` 
@@ -27,13 +30,13 @@ function Home() {
             }
         })();
 
-    }, [navigate])
+    }, [id, navigate])
 
 
     async function updateName(event) {
         event.preventDefault()
 
-        const req = await fetch('http://localhost:1337/api/home/update_name', {
+        const req = await fetch(`http://localhost:1337/api/${id}/update_name`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

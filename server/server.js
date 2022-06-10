@@ -10,7 +10,6 @@ const HTTP_PORT = process.env.PORT || 1337
 
 //------------------------------------------------------
 
-
 // Config
 app.use(cors());
 app.use(express.json());
@@ -52,7 +51,7 @@ app.post('/api/register', async (req, res) => {
 // Login
 app.post('/api/login', async (req, res) => { 
     try{
-        let user = await User.findOne({
+        const user = await User.findOne({
             email: hash.sha256(req.body.email),
         })
     
@@ -69,7 +68,8 @@ app.post('/api/login', async (req, res) => {
                     expiresIn: '24h'
                 }
             )
-            res.json({status: 'ok', user: token})
+
+            res.json({status: 'ok', user: token, username: user.name.toLowerCase()})
         } else {
             res.json({status: 'error', error: 'Incorrect password. Please try again.', user: false})
         }
@@ -78,8 +78,6 @@ app.post('/api/login', async (req, res) => {
     }
 
 })
-
-// Logout
 
 // User Token Verification Middleware
 function verifyToken(req, res, next) {
@@ -94,7 +92,7 @@ function verifyToken(req, res, next) {
 }
 
 // Home
-app.get('/api/home', verifyToken, async (req, res) => {
+app.get('/api/:id', verifyToken, async (req, res) => {
     try {
         const authHeader = req.headers['authorization'].split(' ')
 
@@ -110,7 +108,7 @@ app.get('/api/home', verifyToken, async (req, res) => {
 })
 
 // Update Name
-app.put('/api/home/update_name', verifyToken, async (req, res) => {
+app.put('/api/:id/update_name', verifyToken, async (req, res) => {
     try {
         const authHeader = req.headers['authorization'].split(' ')
 
@@ -127,7 +125,7 @@ app.put('/api/home/update_name', verifyToken, async (req, res) => {
 })
 
 // Update Password
-app.put('/api/home/update_password', verifyToken, async (req, res) => {
+app.put('/api/:id/update_password', verifyToken, async (req, res) => {
     try {
         const authHeader = req.headers['authorization'].split(' ')
         const hashPassword = hash.sha256(req.body.password)
@@ -145,7 +143,7 @@ app.put('/api/home/update_password', verifyToken, async (req, res) => {
 })
 
 // Delete User
-app.delete('/api/home/delete_account', verifyToken, async (req, res) =>{
+app.delete('/api/:id/delete_account', verifyToken, async (req, res) =>{
     try {
         const authHeader = req.header['authorization'].split(' ')
 

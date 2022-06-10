@@ -29,7 +29,7 @@ function LoginForm() {
 
         if(data.status === 'ok') {
             localStorage.setItem('token', data.user)
-            navigate('/api/home')
+            navigate(`/api/${data.username}`)
         } 
 
         if (data.status === 'error') {
