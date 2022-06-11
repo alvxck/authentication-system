@@ -117,7 +117,7 @@ app.put('/api/:id/update_name', verifyToken, async (req, res) => {
             { $set: {name: req.body.name}}
         )
 
-        res.json({status: 'ok'})
+        res.json({status: 'ok', message: 'Name changed successfully'})
 
     } catch (err) {
         res.json({ status: 'error', error: 'invalid token' })
@@ -135,7 +135,7 @@ app.put('/api/:id/update_password', verifyToken, async (req, res) => {
             { $set: {password: hashPassword}}
         )
 
-        res.json({status: 'ok'})
+        res.json({status: 'ok', message: 'Password changed successfully'})
 
     } catch (err) {
         res.json({ status: 'error', error: 'invalid token' })
@@ -151,7 +151,7 @@ app.delete('/api/:id/delete_account', verifyToken, async (req, res) =>{
             {email: jwt.decode(authHeader[1]).email},
         )
 
-        res.json({status: 'ok'})
+        res.json({status: 'ok', message: 'Account deleted successfully'})
 
     } catch (err) {
         res.json({ status: 'error', error: 'invalid token' })
