@@ -1,0 +1,116 @@
+
+:root {
+    --primary-color: #103783;
+    --secondary-color: #9bafd9; 
+    --tertiary-color: #f2f2f2;
+}
+
+.contentContainer {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(.2rem);
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.settingsMenu {
+    margin: auto;
+    width: 30%;
+    padding: 2rem;
+
+    border-radius: 1rem;
+    border-style: solid;
+    border-width: .25rem;
+    border-color: var(--primary-color);
+    background-color: var(--secondary-color);
+}
+
+.headerContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.header {
+    margin: 0;
+    display: inline;
+
+    color: var(--tertiary-color);
+    font-size: 3rem;
+}
+
+.headerIcon {
+    margin: auto 0;
+    padding-right: 1rem;
+    width: 2.5rem;
+}
+
+.formInput {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input {
+    margin: 1rem 0;
+    width: 70%;
+    padding: .75rem;
+    font-size: 1rem;
+
+    box-sizing: border-box;
+    border-radius: .5rem;
+    border-style: none;
+    color: var(--primary-color);
+}
+
+.input:focus {
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 .25rem var(--primary-color);
+}
+
+.button {
+    padding: .75rem;
+    width: 100%;
+    margin-top: 1rem;
+
+    border-radius: 2rem;
+    border-style: none;
+    color: var(--tertiary-color);
+    background-color: #e60000;
+    font-size: 1.5rem;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.saveButton {
+    border-radius: 1rem;
+    border-style: none;
+    padding: 0;
+    color: var(--tertiary-color);
+    background-color: var(--primary-color);
+}
+
+.saveButton:hover {
+    cursor: pointer;
+}
+
+.text {
+    display: block;
+    color: var(--tertiary-color);
+}
+
+.textError {
+    display: block;
+    text-align: center;
+    color: #e60000;
+}

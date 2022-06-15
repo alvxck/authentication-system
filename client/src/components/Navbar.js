@@ -7,11 +7,7 @@ import logoutIcon from '../images/logout-icon.png'
 
 
 function Navbar(props) {
-    const navigate = useNavigate()
-
-    function settings() {
-
-    }
+    const navigate = useNavigate();
 
     function logout() {
         localStorage.removeItem('token');
@@ -29,14 +25,14 @@ function Navbar(props) {
 
             <input
                 className={style.button} 
-                onClick={settings}
+                onClick={props.onClick}
                 type='submit'
                 value='Settings'
             />
             <img 
                 className={style.navbarIcon}
                 src={settingsIcon}
-                alt='home'
+                alt='settings'
             />
 
             <input
@@ -48,7 +44,7 @@ function Navbar(props) {
             <img 
                 className={style.navbarIcon}
                 src={logoutIcon}
-                alt='home'
+                alt='logout'
             />
         </div>
     );

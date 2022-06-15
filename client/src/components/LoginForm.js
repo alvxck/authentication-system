@@ -7,7 +7,7 @@ function LoginForm() {
     const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [error, setError] = useState('\u00A0')
+    const [error, setError] = useState('')
     const [isDisplayPassword, setIsDisplayPassword] = useState(false)
 
 

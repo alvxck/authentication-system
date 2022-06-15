@@ -1,3 +1,10 @@
+
+:root {
+    --primary-color: #103783;
+    --secondary-color: #9bafd9; 
+    --tertiary-color: #f2f2f2;
+}
+
 .contentContainer {
     margin: auto;
     width: 30%;

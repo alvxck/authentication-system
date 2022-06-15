@@ -1,10 +1,10 @@
 import React from 'react';
-import style from './Register.module.css';
+import '../App.css';
 import RegistrationForm from '../components/RegistrationForm';
 
 function Register() {
     return (
-        <div className={style.overlay}>
+        <div className='overlay'>
             <RegistrationForm />
         </div>
     )

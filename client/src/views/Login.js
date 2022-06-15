@@ -1,11 +1,11 @@
 import React from 'react';
-import style from './Login.module.css';
+import '../App.css';
 import LoginForm from '../components/LoginForm';
 
 
 function Login() {
     return (
-        <div className={style.overlay}>
+        <div className='overlay'>
             <LoginForm />
         </div>
     )
