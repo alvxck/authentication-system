@@ -34,6 +34,15 @@
     background-color: var(--secondary-color);
 }
 
+.close {
+    width: 1.5rem;
+    float: right;
+}
+
+.close:hover {
+    cursor: pointer;
+}
+
 .headerContainer{
     display: flex;
     justify-content: center;
@@ -53,14 +62,9 @@
     width: 2.5rem;
 }
 
-.formInput {
-    display: flex;
-    justify-content: space-between;
-}
-
 .input {
     margin: 1rem 0;
-    width: 70%;
+    width: 100%;
     padding: .75rem;
     font-size: 1rem;
 
@@ -76,32 +80,35 @@
     box-shadow: 0 0 0 .25rem var(--primary-color);
 }
 
-.button {
-    padding: .75rem;
-    width: 100%;
+.saveButton {
+    padding: .5rem;
+    margin-top: 1rem;
+
+    border-radius: 2rem;
+    border-style: none;
+    color: var(--tertiary-color);
+    background-color: #00e699;
+    font-size: 1rem;
+}
+
+.deleteButton {
+    padding: .5rem;
     margin-top: 1rem;
 
     border-radius: 2rem;
     border-style: none;
     color: var(--tertiary-color);
     background-color: #e60000;
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
-.button:hover {
+.deleteButton:hover, .saveButton:hover {
     cursor: pointer;
 }
 
-.saveButton {
-    border-radius: 1rem;
-    border-style: none;
-    padding: 0;
-    color: var(--tertiary-color);
-    background-color: var(--primary-color);
-}
-
-.saveButton:hover {
-    cursor: pointer;
+.submitContainer {
+    display: flex;
+    justify-content: space-between;
 }
 
 .text {

@@ -11,10 +11,6 @@ function Home() {
     const [name, setName] = useState('');
     const [isOpen, setIsOpen] = useState(false)
 
-    function toggleSettings() {
-        setIsOpen((prevOpen) => !prevOpen)
-    };
-
     // Check for user specific JWT on page load. Redirect if JWT is invalid.
     useEffect(() => {        
         (async function verifyUser() {
@@ -37,6 +33,10 @@ function Home() {
         })();
 
     }, [id, navigate])
+
+    function toggleSettings() {
+        setIsOpen((prevOpen) => !prevOpen)
+    };
 
     return (
         <div className='overlay'>

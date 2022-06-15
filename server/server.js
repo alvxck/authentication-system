@@ -124,28 +124,10 @@ app.put('/api/:id/update_name', verifyToken, async (req, res) => {
     }
 })
 
-// Update Password
-app.put('/api/:id/update_password', verifyToken, async (req, res) => {
-    try {
-        const authHeader = req.headers['authorization'].split(' ')
-        const hashPassword = hash.sha256(req.body.password)
-
-        await User.updateOne(
-            { email: jwt.decode(authHeader[1]).email}, 
-            { $set: {password: hashPassword}}
-        )
-
-        res.json({status: 'ok', message: 'Password changed successfully'})
-
-    } catch (err) {
-        res.json({ status: 'error', error: 'invalid token' })
-    }
-})
-
 // Delete User
 app.delete('/api/:id/delete_account', verifyToken, async (req, res) =>{
     try {
-        const authHeader = req.header['authorization'].split(' ')
+        const authHeader = req.headers['authorization'].split(' ')
 
         await User.deleteOne(
             {email: jwt.decode(authHeader[1]).email},
@@ -154,6 +136,7 @@ app.delete('/api/:id/delete_account', verifyToken, async (req, res) =>{
         res.json({status: 'ok', message: 'Account deleted successfully'})
 
     } catch (err) {
+        console.log(err)
         res.json({ status: 'error', error: 'invalid token' })
     }
 })

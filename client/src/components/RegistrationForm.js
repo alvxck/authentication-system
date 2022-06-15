@@ -70,7 +70,7 @@ function RegistrationForm() {
                         placeholder='Enter Password'
                         value={password}
                         onChange={(x) => setPassword(x.target.value)}
-                        type='password' 
+                        type={isDisplayPassword ? 'text': 'password'} 
                     />
                     <br/>
                     <input

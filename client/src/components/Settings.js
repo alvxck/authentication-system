@@ -2,14 +2,15 @@ import React, {useState}  from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import style from './Settings.module.css'
 import settingsIcon from '../images/settings-icon.png'
+import closeIcon from '../images/close-icon.png'
+
 
 
 function Settings(props) {
     const id = useParams();
     const navigate = useNavigate()
     const [name, setName] = useState('')
-    const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
+    const [status, setStatus] = useState('')
 
 
     async function updateName(event) {
@@ -29,37 +30,11 @@ function Settings(props) {
         const data = await req.json()
 
         if (data.status === 'ok') {
-            alert(data.message)
+            window.location.reload()
             setName('')
         } else {
             localStorage.removeItem('token')
-            alert(data.error)
-            navigate('/api/register')
-        }
-    }
-
-    async function updatePassword(event) {
-        event.preventDefault()
-
-        const req = await fetch(`http://localhost:1337/api/${id}/update_password`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Bearer ${localStorage.getItem('token')}` 
-            },
-            body: JSON.stringify({
-                password: password
-            })
-        })
-
-        const data = await req.json()
-
-        if (data.status === 'ok') {
-            alert(data.message)
-            setPassword('')
-        } else {
-            localStorage.removeItem('token')
-            setError(data.error)
+            setStatus(data.error)
             navigate('/api/register')
         }
     }
@@ -83,7 +58,7 @@ function Settings(props) {
             navigate('/api/register')
         } else {
             localStorage.removeItem('token')
-            setError(data.error)
+            alert(data.error)
             navigate('/api/register')
         }
     }
@@ -91,11 +66,11 @@ function Settings(props) {
     return (
         <div className={style.contentContainer}>
             <div className={style.settingsMenu}>
-                <input
-                    className={style.buttonClose} 
+                <img
+                    className={style.close}
                     onClick={props.onClose}
-                    type='submit'
-                    value='close'
+                    src={closeIcon}
+                    alt='close'
                 />
                 <div className={style.headerContainer}>
                     <img 
@@ -107,44 +82,30 @@ function Settings(props) {
                 </div>
 
                 <label className={style.text}>Change Name</label>
-                <div className={style.formInput}>
-                    <input
-                        className={style.input} 
-                        onChange={(x) => setName(x.target.value)}
-                        type='text'
-                        value={name}
-                        placeholder='Enter New Name'
-                    />
-                    <button 
-                        onClick={updateName}
-                        className={style.saveButton}
-                    >   
-                    Save</button>                
-                </div>
-
-                <label className={style.text}>Change Password</label>
-                <div className={style.formInput}>
-                    <input
-                        className={style.input} 
-                        onChange={(x) => setPassword(x.target.value)}
-                        type='text'
-                        value={password}
-                        placeholder='Enter New Password'
-                    />
-                    <button 
-                        onClick={updatePassword}
-                        className={style.saveButton}
-                    >   
-                    Save</button>
-                </div>
-
                 <input
-                    className={style.button} 
-                    onClick={deleteAccount}
-                    type='submit'
-                    value='Delete Account'
-                />
-                <label className={style.textError}>{error}</label>
+                    className={style.input} 
+                    onChange={(x) => setName(x.target.value)}
+                    type='text'
+                    value={name}
+                    placeholder='Enter New Name'
+                />            
+
+                <label className={style.textError}>{status}</label>
+
+                <div className={style.submitContainer}>
+                    <input
+                        className={style.deleteButton} 
+                        onClick={deleteAccount}
+                        type='submit'
+                        value='Delete Account'
+                    />
+                    <input
+                        className={style.saveButton} 
+                        onClick={updateName}
+                        type='submit'
+                        value='Save Changes'
+                    />
+                </div>
             </div>
         </div>
     )
