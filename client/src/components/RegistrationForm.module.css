@@ -6,7 +6,27 @@
 }
 
 .contentContainer {
-    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+
+.formContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 1rem;
+
     width: 30%;
     padding: 2rem;
 
@@ -14,29 +34,12 @@
     background-color: var(--secondary-color);
 }
 
-@media screen and (max-width: 600px) {
-    .contentContainer {
-        margin: auto;
-        width: 70%;
-        padding: 2rem;
-    
-        border-radius: 1rem;
-        background-color: var(--secondary-color);
-    }
-    
-}
-
 .header {
-    margin: 2rem auto;
-    width: 50%;
-    text-align: center;
-
     color: var(--secondary-color);
     font-size: 4rem;
 }
 
 .input {
-    margin: 1rem 0;
     width: 100%;
     padding: .75rem;
     font-size: 1rem;
@@ -59,8 +62,9 @@
 }
 
 .button {
+    align-self: center;
     padding: .75rem;
-    width: 100%;
+    width: 50%;
 
     border-radius: 2rem;
     border-style: none;
@@ -78,19 +82,18 @@
 }
 
 .textError {
-    display: block;
+    align-self: center;
     text-align: center;
     color: #e60000;
 }
 
 .textFooter {
-    display: block;
     text-align: center;
-    margin: 1rem 1rem 0 1rem;
     color: var(--tertiary-color);
 }
 
 .textLink {
+    display: block;
     font-weight: bold;
     text-decoration: none;
     color: var(--primary-color);

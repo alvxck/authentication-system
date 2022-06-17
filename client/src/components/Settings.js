@@ -5,14 +5,12 @@ import settingsIcon from '../images/settings-icon.png'
 import closeIcon from '../images/close-icon.png'
 
 
-
 function Settings(props) {
     const id = useParams();
     const navigate = useNavigate()
     const [name, setName] = useState('')
-    const [status, setStatus] = useState('')
 
-
+    // PUT HTTP request to update username associated with account
     async function updateName(event) {
         event.preventDefault()
 
@@ -29,16 +27,27 @@ function Settings(props) {
 
         const data = await req.json()
 
-        if (data.status === 'ok') {
+
+        // Update page based on server response 
+
+        if (data.status === 201) {
             window.location.reload()
             setName('')
-        } else {
+        } 
+
+        if (data.status === 401) {
             localStorage.removeItem('token')
-            setStatus(data.error)
+            alert(data.error)
             navigate('/api/register')
+        }
+
+        if (data.status === 500) {
+            alert('Something went wrong. Please try again.');
+            window.location.reload();
         }
     }
 
+    // DELETE HTTP request to delete user account
     async function deleteAccount(event) {
         event.preventDefault()
 
@@ -52,14 +61,23 @@ function Settings(props) {
 
         const data = await req.json()
 
-        if (data.status === 'ok') {
+        // Update page based on server response 
+
+        if (data.status === 200) {
             localStorage.removeItem('token')
             alert(data.message)
             navigate('/api/register')
-        } else {
+        } 
+        
+        if (data.status === 401) {
             localStorage.removeItem('token')
             alert(data.error)
             navigate('/api/register')
+        }
+
+        if (data.status === 500) {
+            alert('Something went wrong. Please try again.');
+            window.location.reload();
         }
     }
 
@@ -89,8 +107,6 @@ function Settings(props) {
                     value={name}
                     placeholder='Enter New Name'
                 />            
-
-                <label className={style.textError}>{status}</label>
 
                 <div className={style.submitContainer}>
                     <input

@@ -8,9 +8,11 @@ function RegistrationForm() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [error, setError] = useState('\u00A0')
-    const [isDisplayPassword, setIsDisplayPassword] = useState(false)
+    const [error, setError] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
 
+
+    // POST HTTP request to create user account
     async function registerUser(event) {
         event.preventDefault()
 
@@ -28,71 +30,74 @@ function RegistrationForm() {
 
         const data = await response.json()
 
-        if (data.status === 'ok') {
+        // Update page based on server response 
+
+        if (data.status === 201) {
             navigate('/api/login')
         }
 
-        if (data.status === 'error') {
+        if (data.status === 409) {
+            console.log(data.status)
             setError(data.error)
         }
     }
 
+    // Change password visibility
     function togglePassword() {
-        setIsDisplayPassword((isDisplayPassword) => !isDisplayPassword)
+        setShowPassword((prevShowPassword) => !prevShowPassword)
     }
 
     return (
-        <div>
+        <div className={style.contentContainer}>
             <h1 className={style.header}>Sign Up</h1>
-            <div className={style.contentContainer}>
-                <form onSubmit={registerUser}>
-                    <label className={style.text}>Name</label>
-                    <input
-                        className={style.input}
-                        placeholder='Enter Name'
-                        value={name}
-                        onChange={(x) => setName(x.target.value)}
-                        type='text' 
-                    />
-                    <br/>
-                    <label className={style.text}>Email</label>
-                    <input 
-                        className={style.input}
-                        placeholder='Enter Email'
-                        value={email}
-                        onChange={(x) => setEmail(x.target.value)}
-                        type='email' 
-                    />
-                    <br/>
-                    <label className={style.text}>Password</label>
-                    <input 
-                        className={style.input}
-                        placeholder='Enter Password'
-                        value={password}
-                        onChange={(x) => setPassword(x.target.value)}
-                        type={isDisplayPassword ? 'text': 'password'} 
-                    />
-                    <br/>
+            <form onSubmit={registerUser} className={style.formContainer}>
+                <label className={style.text}>Name</label>
+                <input
+                    className={style.input}
+                    placeholder='Enter Name'
+                    value={name}
+                    onChange={(x) => setName(x.target.value)}
+                    type='text' 
+                />
+
+                <label className={style.text}>Email</label>
+                <input 
+                    className={style.input}
+                    placeholder='Enter Email'
+                    value={email}
+                    onChange={(x) => setEmail(x.target.value)}
+                    type='email' 
+                />
+
+                <label className={style.text}>Password</label>
+                <input 
+                    className={style.input}
+                    placeholder='Enter Password'
+                    value={password}
+                    onChange={(x) => setPassword(x.target.value)}
+                    type={showPassword ? 'text': 'password'} 
+                />
+
+                <div>
                     <input
                         className={style.checkBox}
                         type='checkbox'
-                        checked={isDisplayPassword}
+                        checked={showPassword}
                         onChange={togglePassword}
                     />
                     <label className={style.text}> Show Password</label>
-                    <br/>
-                    <label className={style.textError}>{error}</label>
-                    <br/>
-                    <input 
-                        className={style.button}
-                        type='submit'
-                        value='Register'
-                    />
-                    <label className={style.textFooter}>Already have an account?
-                        <br/><Link className={style.textLink} to='/api/login'>Login</Link>
-                    </label>
-                </form>
-            </div>
+                </div>
+
+                <label className={style.textError}>{error}</label>
+                <input 
+                    className={style.button}
+                    type='submit'
+                    value='Register'
+                />
+                <label className={style.textFooter}>Already have an account?
+                    <Link className={style.textLink} to='/api/login'>Login</Link>
+                </label>
+            </form>
         </div>
     )
 };

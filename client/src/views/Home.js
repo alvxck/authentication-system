@@ -23,9 +23,11 @@ function Home() {
     
             const data = await req.json()
     
-            if (data.status === 'ok') {
-                setName(data.name)
-            } else {
+            if (data.status === 200) {
+                setName(data.username)
+            } 
+
+            if (data.status === 401 || data.status === 404) {
                 localStorage.removeItem('token')
                 alert(data.error)
                 navigate('/api/register')
@@ -34,6 +36,8 @@ function Home() {
 
     }, [id, navigate])
 
+
+    // Toggle settings modal
     function toggleSettings() {
         setIsOpen((prevOpen) => !prevOpen)
     };

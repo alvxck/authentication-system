@@ -8,9 +8,10 @@ function LoginForm() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    const [isDisplayPassword, setIsDisplayPassword] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
 
+    // POST HTTP request to create JWT
     async function loginUser(event) {
         event.preventDefault()
 
@@ -26,26 +27,28 @@ function LoginForm() {
         })
 
         const data = await response.json()
+        
+        // Update page based on server response 
 
-        if(data.status === 'ok') {
+        if(data.status === 200) {
             localStorage.setItem('token', data.user)
             navigate(`/api/${data.username}`)
         } 
 
-        if (data.status === 'error') {
+        if (data.status === 400 || data.status === 404) {
             setError(data.error)
         }
     }
 
+    // Change password visibility
     function togglePassword() {
-        setIsDisplayPassword((isDisplayPassword) => !isDisplayPassword)
+        setShowPassword((prevShowPassword) => !prevShowPassword)
     }
 
     return (
-        <div>
+        <div className={style.contentContainer}>
             <h1 className={style.header}>Login</h1>
-            <div className={style.contentContainer}>
-                <form onSubmit={loginUser}>
+                <form onSubmit={loginUser} className={style.formContainer}>
                     <label className={style.text}>Email</label>
                     <input 
                         className={style.input}
@@ -54,36 +57,39 @@ function LoginForm() {
                         onChange={(x) => setEmail(x.target.value)}
                         type='email' 
                     />
-                    <br/>    
+
                     <label className={style.text}>Password</label>
                     <input
                         className={style.input}
                         placeholder='Enter Password' 
                         value={password}
                         onChange={(x) => setPassword(x.target.value)}
-                        type={isDisplayPassword ? 'text': 'password'} 
+                        type={showPassword ? 'text': 'password'} 
                     />
-                    <br/>
-                    <input
-                        className={style.checkBox}
-                        type='checkbox'
-                        checked={isDisplayPassword}
-                        onChange={togglePassword}
-                    />
-                    <label className={style.text}> Show Password</label>
-                    <br/>
+
+                    <div>
+                        <input
+                            className={style.checkBox}
+                            type='checkbox'
+                            checked={showPassword}
+                            onChange={togglePassword}
+                        />
+
+                        <label className={style.text}> Show Password</label>
+                    </div>
+
                     <label className={style.textError}>{error}</label>
-                    <br/>
+
                     <input
                         className={style.button} 
                         type='submit'
                         value='Login'
                     />
+
                     <label className={style.textFooter}>Don't have an account? 
-                        <br/><Link className={style.textLink} to='/api/register'>Register</Link>
+                        <Link className={style.textLink} to='/api/register'>Register</Link>
                     </label>
                 </form>
-            </div>
         </div>
     )
 };

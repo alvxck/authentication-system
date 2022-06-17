@@ -10,7 +10,7 @@ function Navbar(props) {
     const navigate = useNavigate();
 
     function logout() {
-        alert('logout succesful.')
+        alert('Logout was succesful.')
         localStorage.removeItem('token');
         navigate('/api/login');
     }
