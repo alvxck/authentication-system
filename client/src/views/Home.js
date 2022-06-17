@@ -21,15 +21,15 @@ function Home() {
                 }
             })
     
-            const data = await req.json()
+            const res = await req.json()
     
-            if (data.status === 200) {
-                setName(data.username)
+            if (req.status === 200) {
+                setName(res.username)
             } 
 
-            if (data.status === 401 || data.status === 404) {
+            if (req.status === 401 || req.status === 404) {
                 localStorage.removeItem('token')
-                alert(data.error)
+                alert(res.error)
                 navigate('/api/register')
             }
         })();

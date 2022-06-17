@@ -14,7 +14,7 @@ const HTTP_PORT = process.env.PORT || 1337
 app.use(cors());
 app.use(express.json());
 
-// Database connection
+// Attempt Database connection
 (async ()=> {
     try {
         await mongoose.connect('mongodb://localhost:27017/login_system')
@@ -32,6 +32,7 @@ app.listen(HTTP_PORT, () => {
 // Register
 app.post('/api/register', async (req, res) => {
     try {
+        // Hash email and password before saving to DB
         let hashEmail = hash.sha256(req.body.email)
         let hashPassword = hash.sha256(req.body.password)
 
@@ -41,22 +42,25 @@ app.post('/api/register', async (req, res) => {
             password: hashPassword
         })
 
-        res.json({status: 'ok'}) 
+        res.status(201).json({message: 'account created'})
 
     } catch (err) {
-        res.json({status: 'error', error: 'An account with this email exists already. Please try logging in instead.'})
+        res.status(409).json({error: 'account exists already'})
     }
 })
-
+ 
 // Login
 app.post('/api/login', async (req, res) => { 
     try{
+        // Hash requested email before checking DB
         const user = await User.findOne({
             email: hash.sha256(req.body.email),
         })
     
+        // Hash requested password and compare with password in DB
         let isPasswordValid = hash.sha256(req.body.password) == user.password
         
+        // Create jwt if requested email and password are valid 
         if (isPasswordValid) {
             const token = jwt.sign(
                 {
@@ -69,12 +73,12 @@ app.post('/api/login', async (req, res) => {
                 }
             )
 
-            res.json({status: 'ok', user: token, username: user.name.toLowerCase()})
+            res.status(200).json({message: 'account found', user: token, username: user.name.toLowerCase()})
         } else {
-            res.json({status: 'error', error: 'Incorrect password. Please try again.', user: false})
+            res.status(400).json({error: 'incorrect password', user: false})
         }
     } catch (err) {
-        res.json({status: 'error', error: 'This account does not exist. Please try again or create a new account.'})
+        res.status(404).json({error: 'account does not exist'})
     }
 
 })
@@ -87,7 +91,7 @@ function verifyToken(req, res, next) {
 
         next();
     } catch (err) {
-        res.json({status: 'error', error: 'invalid token'})
+        res.status(401).json({error: 'unathorized token'})
     }
 }
 
@@ -100,10 +104,10 @@ app.get('/api/:id', verifyToken, async (req, res) => {
             { email: jwt.decode(authHeader[1]).email}
         )
 
-        res.json({status: 'ok', name: user.name})
+        res.status(200).json({username: user.name})
 
     } catch (err) {
-        res.json({ status: 'error', error: 'user not found' })
+        res.status(404).json({error: 'user not found'})
     }
 })
 
@@ -117,10 +121,10 @@ app.put('/api/:id/update_name', verifyToken, async (req, res) => {
             { $set: {name: req.body.name}}
         )
 
-        res.json({status: 'ok', message: 'Name changed successfully'})
+        res.status(201).json({status: 'name changed successfully'})
 
     } catch (err) {
-        res.json({ status: 'error', error: 'invalid token' })
+        res.status(500)
     }
 })
 
@@ -133,10 +137,9 @@ app.delete('/api/:id/delete_account', verifyToken, async (req, res) =>{
             {email: jwt.decode(authHeader[1]).email},
         )
 
-        res.json({status: 'ok', message: 'Account deleted successfully'})
+        res.status(200).json({status: 'account deleted successfully'})
 
     } catch (err) {
-        console.log(err)
-        res.json({ status: 'error', error: 'invalid token' })
+        res.status(500)
     }
 })

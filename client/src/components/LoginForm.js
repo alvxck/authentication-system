@@ -15,28 +15,32 @@ function LoginForm() {
     async function loginUser(event) {
         event.preventDefault()
 
-        const response = await fetch('http://localhost:1337/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify({
-                email,
-                password
+        try {
+            const req = await fetch('http://localhost:1337/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
             })
-        })
-
-        const data = await response.json()
-        
-        // Update page based on server response 
-
-        if(data.status === 200) {
-            localStorage.setItem('token', data.user)
-            navigate(`/api/${data.username}`)
-        } 
-
-        if (data.status === 400 || data.status === 404) {
-            setError(data.error)
+    
+            const res = await req.json()
+            
+            // Update page based on req status
+            if(req.status === 200) {
+                localStorage.setItem('token', res.user)
+                navigate(`/api/${res.username}`)
+            } 
+    
+            if (req.status === 400 || req.status === 404) {
+                setError(res.error)
+            }
+            
+        } catch (err) {
+            console.log(err)
         }
     }
 

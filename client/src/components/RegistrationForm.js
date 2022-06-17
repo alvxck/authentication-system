@@ -16,29 +16,31 @@ function RegistrationForm() {
     async function registerUser(event) {
         event.preventDefault()
 
-        const response = await fetch('http://localhost:1337/api/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify({
-                name,
-                email,
-                password
+        try {
+            const req = await fetch('http://localhost:1337/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
             })
-        })
 
-        const data = await response.json()
+            const res = await req.json()
 
-        // Update page based on server response 
-
-        if (data.status === 201) {
-            navigate('/api/login')
-        }
-
-        if (data.status === 409) {
-            console.log(data.status)
-            setError(data.error)
+            // Update page based on req status
+            if (req.status === 201) {
+                navigate('/api/login')
+            }
+    
+            if (req.status === 409) {
+                setError(res.error)
+            }
+        } catch (err) {
+            console.log(err)
         }
     }
 

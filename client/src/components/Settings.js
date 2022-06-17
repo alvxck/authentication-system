@@ -14,36 +14,39 @@ function Settings(props) {
     async function updateName(event) {
         event.preventDefault()
 
-        const req = await fetch(`http://localhost:1337/api/${id}/update_name`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Bearer ${localStorage.getItem('token')}` 
-            },
-            body: JSON.stringify({
-                name: name
+        try {
+            const req = await fetch(`http://localhost:1337/api/${id}/update_name`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('token')}` 
+                },
+                body: JSON.stringify({
+                    name: name
+                })
             })
-        })
+    
+            const res = await req.json()
+    
+            // Update page based on server response 
+            if (req.status === 201) {
+                window.location.reload();
+                setName('')
+            } 
+    
+            if (req.status === 401) {
+                localStorage.removeItem('token')
+                alert(res.error)
+                navigate('/api/register')
+            }
+    
+            if (req.status === 500) {
+                alert('Something went wrong. Please try again.');
+                window.location.reload();
+            }
 
-        const data = await req.json()
-
-
-        // Update page based on server response 
-
-        if (data.status === 201) {
-            window.location.reload()
-            setName('')
-        } 
-
-        if (data.status === 401) {
-            localStorage.removeItem('token')
-            alert(data.error)
-            navigate('/api/register')
-        }
-
-        if (data.status === 500) {
-            alert('Something went wrong. Please try again.');
-            window.location.reload();
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -51,33 +54,37 @@ function Settings(props) {
     async function deleteAccount(event) {
         event.preventDefault()
 
-        const req = await fetch(`http://localhost:1337/api/${id}/delete_account`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Bearer ${localStorage.getItem('token')}` 
+        try {
+            const req = await fetch(`http://localhost:1337/api/${id}/delete_account`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('token')}` 
+                }
+            })
+
+            const res = await req.json()
+
+            // Update page based on server response 
+            if (req.status === 200) {
+                localStorage.removeItem('token')
+                alert(res.message)
+                navigate('/api/register')
+            } 
+            
+            if (req.status === 401) {
+                localStorage.removeItem('token')
+                alert(res.error)
+                navigate('/api/register')
             }
-        })
 
-        const data = await req.json()
+            if (req.status === 500) {
+                alert('Something went wrong. Please try again.');
+                window.location.reload();
+            }
 
-        // Update page based on server response 
-
-        if (data.status === 200) {
-            localStorage.removeItem('token')
-            alert(data.message)
-            navigate('/api/register')
-        } 
-        
-        if (data.status === 401) {
-            localStorage.removeItem('token')
-            alert(data.error)
-            navigate('/api/register')
-        }
-
-        if (data.status === 500) {
-            alert('Something went wrong. Please try again.');
-            window.location.reload();
+        } catch (err) {
+            console.log(err)
         }
     }
 
