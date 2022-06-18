@@ -121,7 +121,11 @@ app.put('/api/:id/update_name', verifyToken, async (req, res) => {
             { $set: {name: req.body.name}}
         )
 
-        res.status(201).json({status: 'name changed successfully'})
+        const user = await User.findOne(
+            { email: jwt.decode(authHeader[1]).email}
+        )
+
+        res.status(201).json({status: 'name changed successfully', username: user.name.toLowerCase()})
 
     } catch (err) {
         res.status(500)

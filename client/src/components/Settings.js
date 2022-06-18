@@ -30,7 +30,8 @@ function Settings(props) {
     
             // Update page based on server response 
             if (req.status === 201) {
-                window.location.reload();
+                navigate(`/api/${res.username}`)
+                props.onClose();
                 setName('')
             } 
     
