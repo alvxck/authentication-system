@@ -125,7 +125,7 @@ app.put('/api/:id/update_name', verifyToken, async (req, res) => {
             { email: jwt.decode(authHeader[1]).email}
         )
 
-        res.status(201).json({status: 'name changed successfully', username: user.name.toLowerCase()})
+        res.status(201).json({message: 'name changed successfully', username: user.name.toLowerCase()})
 
     } catch (err) {
         res.status(500)
@@ -141,7 +141,7 @@ app.delete('/api/:id/delete_account', verifyToken, async (req, res) =>{
             {email: jwt.decode(authHeader[1]).email},
         )
 
-        res.status(200).json({status: 'account deleted successfully'})
+        res.status(200).json({message: 'account deleted successfully'})
 
     } catch (err) {
         res.status(500)
