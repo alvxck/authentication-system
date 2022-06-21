@@ -1,20 +1,27 @@
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const mongoose = require('mongoose')
-const User = require('./models/user')
-const jwt = require('jsonwebtoken')
-const hash = require('js-sha256')
-require('dotenv').config()
-const HTTP_PORT = process.env.PORT || 1337
-
-//------------------------------------------------------
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import model from './models/user.js';
+import jwt from 'jsonwebtoken';
+import hash from 'js-sha256';
+import dotenv from 'dotenv';
 
 // Config
+dotenv.config();
+
+const HTTP_PORT = process.env.PORT || 1337;
+const User = model;
+const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-// Attempt Database connection
+app.listen(HTTP_PORT, () => {
+    console.log('Server running on port ' + HTTP_PORT)
+});
+
+
+// Database connection
 (async ()=> {
     try {
         await mongoose.connect('mongodb://localhost:27017/login_system')
@@ -23,11 +30,6 @@ app.use(express.json());
     }
 })();
 
-
-// Initialization
-app.listen(HTTP_PORT, () => {
-    console.log('Server running on port ' + HTTP_PORT)
-})
 
 // Register
 app.post('/api/register', async (req, res) => {
@@ -48,6 +50,7 @@ app.post('/api/register', async (req, res) => {
         res.status(409).json({error: 'account exists already'})
     }
 })
+
  
 // Login
 app.post('/api/login', async (req, res) => { 
@@ -83,6 +86,7 @@ app.post('/api/login', async (req, res) => {
 
 })
 
+
 // User Token Verification Middleware
 function verifyToken(req, res, next) {
     try{
@@ -94,6 +98,7 @@ function verifyToken(req, res, next) {
         res.status(401).json({error: 'unathorized token'})
     }
 }
+
 
 // Home
 app.get('/api/:id', verifyToken, async (req, res) => {
@@ -110,6 +115,7 @@ app.get('/api/:id', verifyToken, async (req, res) => {
         res.status(404).json({error: 'user not found'})
     }
 })
+
 
 // Update Name
 app.put('/api/:id/update_name', verifyToken, async (req, res) => {
@@ -131,6 +137,7 @@ app.put('/api/:id/update_name', verifyToken, async (req, res) => {
         res.status(500)
     }
 })
+
 
 // Delete User
 app.delete('/api/:id/delete_account', verifyToken, async (req, res) =>{
