@@ -44,6 +44,18 @@
     border-radius: 2rem 2rem 0 0;
 }
 
+@media screen and (max-width: 600px) {
+    .contentContainer {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin: 7rem 4rem 0 4rem;
+        height: 100%;
+        background-color: var(--secondary-color);
+        border-radius: 2rem 2rem 0 0;
+    }
+}
+
 .error--container {
     display: flex;
     justify-content: center;
@@ -52,6 +64,7 @@
 
 .header{
     font-size: 3rem;
+    text-align: center;
     color: var(--tertiary-color);
 }
 

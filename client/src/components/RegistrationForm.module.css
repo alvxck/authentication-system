@@ -34,6 +34,22 @@
     background-color: var(--secondary-color);
 }
 
+@media screen and (max-width: 600px) {
+    .formContainer {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        row-gap: 1rem;
+    
+        width: 80%;
+        padding: 2rem;
+    
+        border-radius: 1rem;
+        background-color: var(--secondary-color);
+    }
+
+}
+
 .header {
     color: var(--secondary-color);
     font-size: 4rem;

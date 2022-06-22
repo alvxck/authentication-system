@@ -10,6 +10,16 @@
     background-color: var(--secondary-color);
 }
 
+@media screen and (max-width: 600px) {
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--secondary-color);
+    }
+}
+
 .header {
     margin: 0 auto 0 2rem;
 
