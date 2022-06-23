@@ -15,7 +15,7 @@ function Settings(props) {
         event.preventDefault()
 
         try {
-            const req = await fetch(`http://localhost:1337/api/${id}/update_name`, {
+            const res = await fetch(`http://localhost:1337/api/${id}/update_name`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,22 +26,22 @@ function Settings(props) {
                 })
             })
     
-            const res = await req.json()
+            const data = await res.json()
     
             // Update page based on server response 
-            if (req.status === 201) {
-                navigate(`/api/${res.username}`)
+            if (res.status === 201) {
+                navigate(`/api/${data.username}`)
                 props.onClose();
                 setName('')
             } 
     
-            if (req.status === 401) {
+            if (res.status === 401) {
                 localStorage.removeItem('token')
-                alert(res.error)
+                alert(data.error)
                 navigate('/api/register')
             }
     
-            if (req.status === 500) {
+            if (res.status === 500) {
                 alert('Something went wrong. Please try again.');
                 window.location.reload();
             }
@@ -56,7 +56,7 @@ function Settings(props) {
         event.preventDefault()
 
         try {
-            const req = await fetch(`http://localhost:1337/api/${id}/delete_account`, {
+            const res = await fetch(`http://localhost:1337/api/${id}/delete_account`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,22 +64,22 @@ function Settings(props) {
                 }
             })
 
-            const res = await req.json()
+            const data = await res.json()
 
             // Update page based on server response 
-            if (req.status === 200) {
+            if (res.status === 200) {
                 localStorage.removeItem('token')
-                alert(res.message)
+                alert(data.message)
                 navigate('/api/register')
             } 
             
-            if (req.status === 401) {
+            if (res.status === 401) {
                 localStorage.removeItem('token')
-                alert(res.error)
+                alert(data.error)
                 navigate('/api/register')
             }
 
-            if (req.status === 500) {
+            if (res.status === 500) {
                 alert('Something went wrong. Please try again.');
                 window.location.reload();
             }

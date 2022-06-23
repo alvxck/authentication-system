@@ -16,7 +16,7 @@ function LoginForm() {
         event.preventDefault()
 
         try {
-            const req = await fetch('http://localhost:1337/api/login', {
+            const res = await fetch('http://localhost:1337/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json' 
@@ -26,17 +26,17 @@ function LoginForm() {
                     password
                 })
             })
-    
-            const res = await req.json()
-            
-            // Update page based on req status
-            if(req.status === 200) {
-                localStorage.setItem('token', res.user)
-                navigate(`/api/${res.username}`)
+
+            const data = await res.json();
+                
+            // Update page based on response status
+            if(res.status === 200) {
+                localStorage.setItem('token', data.user)
+                navigate(`/api/${data.username}`)
             } 
     
-            if (req.status === 400 || req.status === 404) {
-                setError(res.error)
+            if (res.status === 400 || res.status === 404) {
+                setError(data.error)
             }
             
         } catch (err) {

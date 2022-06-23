@@ -14,22 +14,22 @@ function Home() {
     // Check for user specific JWT on page load. Redirect if JWT is invalid.
     useEffect(() => {        
         (async function verifyUser() {
-            const req = await fetch(`http://localhost:1337/api/${id}`, {
+            const res = await fetch(`http://localhost:1337/api/${id}`, {
                 method: 'GET',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('token')}` 
                 }
             })
     
-            const res = await req.json()
+            const data = await res.json()
     
-            if (req.status === 200) {
-                setName(res.username)
+            if (res.status === 200) {
+                setName(data.username)
             } 
 
-            if (req.status === 401 || req.status === 404) {
+            if (res.status === 401 || res.status === 404) {
                 localStorage.removeItem('token')
-                alert(res.error)
+                alert(data.error)
                 navigate('/api/register')
             }
         })();

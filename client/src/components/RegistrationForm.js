@@ -17,7 +17,7 @@ function RegistrationForm() {
         event.preventDefault()
 
         try {
-            const req = await fetch('http://localhost:1337/api/register', {
+            const res = await fetch('http://localhost:1337/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json' 
@@ -29,15 +29,15 @@ function RegistrationForm() {
                 })
             })
 
-            const res = await req.json()
+            const data = await res.json()
 
-            // Update page based on req status
-            if (req.status === 201) {
+            // Update page based on response status
+            if (res.status === 201) {
                 navigate('/api/login')
             }
     
-            if (req.status === 409) {
-                setError(res.error)
+            if (res.status === 409) {
+                setError(data.error)
             }
         } catch (err) {
             console.log(err)
