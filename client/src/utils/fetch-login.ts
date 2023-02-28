@@ -1,5 +1,7 @@
+import { FormEvent } from "react";
+import { loginForm } from "../types/types";
 
-export const registerUser = async (event: Event) => {
+export const loginUser = async (event: FormEvent, form: loginForm) => {
     event.preventDefault();
 
     try {
@@ -8,10 +10,7 @@ export const registerUser = async (event: Event) => {
             headers: {
                 'Content-Type': 'appliaction/json'
             },
-            body: JSON.stringify({
-                email: String,
-                password: String,
-            })
+            body: JSON.stringify(form)
         });
 
         const data = await res.json();
