@@ -30,6 +30,7 @@ export const Register = () => {
     return (
         <div className='main'>
             <form onSubmit={register}>
+                <h1>Register</h1>
                 <label>Name</label>
                 <input
                     placeholder='Name'
@@ -46,8 +47,8 @@ export const Register = () => {
                 />
                 <label>Password</label>
                 <input
-                    placeholder='Email'
-                    value={email}
+                    placeholder='password'
+                    value={password}
                     onChange={(x) => setPassword(x.target.value)}
                     type={showPassword ? 'text' : 'password'}
                 />
@@ -65,7 +66,7 @@ export const Register = () => {
                     value='Register'
                 />
                 <label>Already have an account?
-                    <Link to='/api/login'>Login</Link>
+                    <Link to='/login'>Login</Link>
                 </label>
             </form>
         </div>

@@ -1,13 +1,11 @@
 
-export type registrationCredentials = {
-    event: React.FormEvent, 
+export type registrationForm = {
     name: string, 
     email: string, 
     password: string,
 }
 
-export type loginCredentials = {
-    event: React.FormEvent, 
+export type loginForm = {
     email: string, 
     password: string,
 }

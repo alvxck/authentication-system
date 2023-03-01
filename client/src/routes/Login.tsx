@@ -29,6 +29,7 @@ export const Login = () => {
     return (
         <div className='main'>
             <form onSubmit={login}>
+                <h1>Login</h1>
                 <label>Email</label>
                 <input
                     placeholder='Email'
@@ -38,8 +39,8 @@ export const Login = () => {
                 />
                 <label>Password</label>
                 <input
-                    placeholder='Email'
-                    value={email}
+                    placeholder='Password'
+                    value={password}
                     onChange={(x) => setPassword(x.target.value)}
                     type={showPassword ? 'text' : 'password'}
                 />
@@ -56,8 +57,8 @@ export const Login = () => {
                     type='submit'
                     value='Register'
                 />
-                <label>Already have an account?
-                    <Link to='/api/login'>Login</Link>
+                <label>Don't have an account?
+                    <Link to='/register'>Register</Link>
                 </label>
             </form>
         </div>

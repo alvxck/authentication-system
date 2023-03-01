@@ -6,8 +6,8 @@ export const Error = () => {
     console.error(error);
 
     return (
-        <>
-        <i>{error.statusText || error.message}</i>
-        </>
+        <div className='main'>
+            <i>{error.statusText || error.message}</i>
+        </div>
     )
 }
