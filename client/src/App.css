@@ -2,31 +2,3 @@
 body {
 	margin: 0;
 }
-
-.main {
-	margin: 0;
-	padding: 0;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #080808;
-}
-
-form {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	width: 400px;
-	height: 400px;
-}
-
-form label {
-	color: #FFF;
-	font-size: large;
-}
-
-form input {
-	height: 2rem;
-}
