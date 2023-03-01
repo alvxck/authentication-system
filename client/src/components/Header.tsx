@@ -19,7 +19,7 @@ export const Header = (props : any) => {
             />
             <input
                 className='text-white ml-auto cursor-pointer hover:text-blue-500' 
-                onClick={props.toggleSettings}
+                onClick={() => console.log('/settings')}
                 type='submit'
                 value='Settings'
             />
