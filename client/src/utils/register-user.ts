@@ -16,9 +16,13 @@ export const registerUser = async (event: FormEvent, form: registrationForm) => 
 
         const data = await res.json();
 
-        if(res.status === 201) {  }
+        if(res.status === 201) { 
+            return data;
+        }
 
-        if(res.status === 409) {  }
+        if(res.status === 409) { 
+            throw new Error(data.message);
+        }
 
     } catch (error) {
         console.log(error);

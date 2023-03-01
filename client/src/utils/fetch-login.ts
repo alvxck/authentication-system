@@ -15,9 +15,13 @@ export const loginUser = async (event: FormEvent, form: loginForm) => {
 
         const data = await res.json();
 
-        if(res.status === 400 || res.status === 404) {  }
+        if(res.status === 400 || res.status === 404) { 
+            return data;
+        }
 
-        if(res.status === 409) {  }
+        if(res.status === 409) { 
+            throw new Error(data.message);
+        }
 
     } catch (error) {
         console.log(error);

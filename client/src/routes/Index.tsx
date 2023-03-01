@@ -27,7 +27,7 @@ export const Index = () => {
             if (res.status === 401 || res.status === 404) {
                 localStorage.removeItem('token')
                 alert(data.error)
-                navigate('/api/register')
+                navigate('/')
             }
         })();
     }, [id, navigate])

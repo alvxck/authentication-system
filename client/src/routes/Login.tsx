@@ -1,11 +1,13 @@
 import '../App.css';
 import { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { loginUser } from '../utils/fetch-login';
 import { loginForm } from '../types/types';
 
 
 export const Login = () => {
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -18,7 +20,17 @@ export const Login = () => {
             password: password
         }
 
-        let status = loginUser(event, form);
+        const res = await loginUser(event, form);
+
+        // Update page based on response status
+        if(res.status === 200) {
+            localStorage.setItem('token', res.user)
+            navigate(`/index/${res.username}`)
+        } 
+
+        if (res.status === 400 || res.status === 404) {
+            setError(res.error)
+        }
     }
 
     // Password visibility

@@ -1,10 +1,12 @@
 import '../App.css';
 import { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { registerUser } from '../utils/register-user';
 import { registrationForm } from '../types/types';
 
 export const Register = () => {
+    const navigate = useNavigate();
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -19,7 +21,15 @@ export const Register = () => {
             password: password
         }
 
-        let status = await registerUser(event, form);
+        const res = await registerUser(event, form);
+
+        if (res.status === 201) {
+            navigate('/login');
+        }
+
+        if (res.status === 409) {
+            setError(res.error);
+        }
     }
     
     // Password visibility
