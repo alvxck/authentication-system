@@ -72,7 +72,7 @@ export const Register = () => {
                 </div>
                 
                 <label className='text-white text-center mt-3'>Already have an account?
-                    <Link className='text-blue-500' to='/login'> Login↗</Link>
+                    <Link className='text-blue-500' to='/'> Login↗</Link>
                 </label>
             </form>
         </div>
