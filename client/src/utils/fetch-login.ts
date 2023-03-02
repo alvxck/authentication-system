@@ -5,8 +5,9 @@ export const loginUser = async (event: FormEvent, form: loginForm) => {
     event.preventDefault();
 
     try {
-        const res = await fetch('http://localhost:1337/api/login', {
-            method: 'GET',
+        const res = await fetch('http://127.0.0.1:1337/api/login', {
+            method: 'POST',
+            mode: 'no-cors',
             headers: {
                 'Content-Type': 'appliaction/json'
             },

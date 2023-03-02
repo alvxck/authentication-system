@@ -6,7 +6,7 @@ export const registerUser = async (event: FormEvent, form: registrationForm) => 
     event.preventDefault();
 
     try {
-        const res = await fetch('http://localhost:1337/api/register', {
+        const res = await fetch('http://127.0.0.1:1337/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'appliaction/json'
