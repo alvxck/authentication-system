@@ -2,10 +2,10 @@
 
 ![image](login-system-demo.gif)
 
-The goal of this project is to develop a Full Stack (MERN) Login & Registration system. User identity is verified through stateless JSON Web Token validation middleware with standard RESTful practices for data transmission with JSON.
+The goal of this project is to develop a Full Stack (MERN) Login & Registration system. User identity is verified through server-side JSON Web token validation.
 
 ## Frontend
-* Built using **React**, **Javascript**, **HTML**, and **CSS**.
+* Built using **React**, **TypeScript**, **Tailwind**, and **Vite**.
 * Utilizes **React Hooks** for simple state management.
 
 ## Backend
