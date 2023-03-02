@@ -1,6 +1,6 @@
 # Login System
 
-![image](login-system-demo.gif)
+![image](loginsystem-preview.gif)
 
 The goal of this project is to develop a Full Stack (MERN) Login & Registration system. User identity is verified through server-side JSON Web token validation.
 
