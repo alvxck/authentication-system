@@ -1,8 +1,8 @@
-# Login System
+# Authentication System
 
 ![image](loginsystem-preview.gif)
 
-The goal of this project is to develop a Full Stack (MERN) Login & Registration system. User identity is verified through server-side JSON Web token validation.
+The goal of this project is to develop a Full Stack (MERN) authentication system. User identity is verified through server-side JSON Web token validation.
 
 ## Frontend
 * Built using **React**, **TypeScript**, **Tailwind**, and **Vite**.
