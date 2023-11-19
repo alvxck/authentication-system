@@ -6,10 +6,10 @@ import {
   RouterProvider
 } from 'react-router-dom';
 
-import { Error } from './routes/Error';
-import { Index } from './routes/Index';
-import { Login } from './routes/Login';
-import { Register } from './routes/Register';
+import { Error } from './pages/Error';
+import { Index } from './pages/Index';
+import { Login } from './pages/Login';
+import { Register } from './pages/Register';
 
 
 const router = createBrowserRouter([
